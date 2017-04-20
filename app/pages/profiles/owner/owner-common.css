@@ -1,0 +1,10 @@
+.profile {
+  font-family: "FontAwesome", fontawesome-webfont;
+  font-size: 90;
+  text-align: center;
+  width: 100;
+  height: 100;
+  background-color: #212121;
+  color: #BDBDBD;
+  border-radius: 50;
+}

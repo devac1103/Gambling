@@ -1,0 +1,54 @@
+.profile {
+  text-align: right;
+  color: #607D8B;
+  font-size: 25;
+  font-family: "FontAwesome";
+}
+.bullet {
+  text-align: center;
+  font-size: 14;
+  /*font-family: "FontAwesome";*/
+}
+.stakes {
+  text-align: right;
+  color: #607D8B;
+  border-color: #607D8B;
+  font-size: 20;
+  font-family: "FontAwesome";
+  border: solid;
+  border-width: 2;
+  border-radius: 5;
+  text-align: center;
+  height: 26;
+  width: 26;
+  border-radius: 13;
+}
+.enabled {
+  text-align: right;
+  color: yellow;
+  border-color: #607D8B;
+  font-size: 20;
+  font-family: "FontAwesome";
+  border: solid;
+  border-width: 2;
+  border-radius: 5;
+  text-align: center;
+  height: 26;
+  width: 26;
+  border-radius: 13;
+  background-color: #607D8B;
+}
+.disabled {
+  text-align: right;
+  color: #BDBDBD;
+  border-color: #BDBDBD;
+  font-size: 20;
+  font-family: "FontAwesome";
+  border: solid;
+  border-width: 2;
+  border-radius: 5;
+  text-align: center;
+  height: 26;
+  width: 26;
+  border-radius: 13;
+}

@@ -1,0 +1,93 @@
+<ActionBar title="Upcoming Races">
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <GridLayout rows="*">
+    <ListView #raceListView [items]="races" [visibility]="!isLoading ? 'visible' : 'collapse'">
+      <template let-item="item" let-i="index">
+        <!-- Race card -->
+        <StackLayout width="100%">
+          <StackLayout class="card">
+            <StackLayout orientation="horizontal" class="card-header">
+              <StackLayout (tap)="toggleRaceBody(item.id, i)" verticalAlignment="center" width="55%">
+                <Label text="{{item.track}}" class="name" textwrap="true"></Label>
+                <Label text="{{item.startDate}}" class="detail"></Label>
+              </StackLayout>
+              <StackLayout width="20%" verticalAlignment="center">
+                <Button *ngIf="item.drawn == 1" (tap)="viewProgram(item.id)" class="program" text="&#xf1ea;"></Button>
+                <Label *ngIf="item.drawn != 1" text="-" horizontalAlignment="center"></Label>
+              </StackLayout>
+              <StackLayout width="25%" verticalAlignment="center" class="date">
+                <label text="Week: {{item.week}}"></label>
+                <label text="Season: {{item.season}}"></label>
+              </StackLayout>
+            </StackLayout>
+            <!-- Race Body -->
+            <StackLayout width="100%" height="auto" class="race-body" *ngIf="visibleID == item.id">
+              <GridLayout columns="60,*,48,48" rows="*" width="100%" verticalAlignment="top" class="table-header">
+                <Label col="0" text="Time"></Label>
+                <Label col="1" text="Race Type"></Label>
+                <Label col="2" text="Entries" horizontalAlignment="center"></Label>
+                <Label col="3" text="Purse" horizontalAlignment="center"></Label>
+              </GridLayout>
+              <StackLayout *ngFor="let race of card; let j = index">
+                <CardView>
+                  <StackLayout class="races">
+                    <GridLayout (tap)="toggleRaceDetail(race)" columns="60,*,48,48" rows="auto" width="100%" class="races">
+                      <Label col="0" row="{{j}}" [text]="race.time" verticalAlignment="center"></Label>
+                      <Label col="1" row="{{j}}" [text]="race.description" verticalAlignment="center" textwrap="true"></Label>
+                      <Label col="2" row="{{j}}" [text]="race.numEntries" verticalAlignment="center" horizontalAlignment="center"></Label>
+                      <Label col="3" row="{{j}}" [text]="userService.commaSeparateNumber(race.purse)" verticalAlignment="center" horizontalAlignment="right"></Label>
+                    </GridLayout>
+                    <CardView>
+                      <StackLayout width="100%" height="auto" class="results" *ngIf="detailID == race.id">
+                        <StackLayout *ngIf="!claiming">
+                          <GridLayout [columns]="(race.description.indexOf('Claim') != -1 && race.run == 0) ? '25,*,*,*,70' : '25,*,*,*'" rows="*" class="table-header">
+                            <Label col="1" text="Horse"></Label>
+                            <Label col="2" text="Driver"></Label>
+                            <Label col="3" text="Owner"></Label>
+                          </GridLayout>
+                          <GridLayout [columns]="(race.description.indexOf('Claim') != -1 && race.run == 0) ? '25,*,*,*,70' : '25,*,*,*'" rows="auto" class="row" *ngFor="let entry of detail; let k = index">
+                            <Label col="0" row="{{k}}" [text]="entry.postDrawn" class="post-box post-{{entry.postDrawn}}"></Label>
+                            <Label (tap)="goToHorse(entry.horseID)" col="1" row="{{k}}" [text]="entry.horseName" textwrap="true" verticalAlignment="center"></Label>
+                            <Label (tap)="goToDriver(entry.driverID)" col="2" row="{{k}}" [text]="entry.driverName" textwrap="true" verticalAlignment="center"></Label>
+                            <Label (tap)="goToOwner(entry.ownerID)" col="3" row="{{k}}" [text]="entry.ownerName" textwrap="true" verticalAlignment="center"></Label>
+                            <StackLayout *ngIf="race.description.indexOf('Claim') != -1 && race.run == 0 && entry.ownerID != myID" col="4" row="{{k}}">
+                              <Button *ngIf="!entry.claimEntered" class="btn" (tap)="claimHorse(entry.horseName, race.id, entry.horseID)" text="Claim"></Button>
+                              <Button *ngIf="entry.claimEntered" class="claim-entered" text="Claim" textwrap="true"></Button>
+                            </StackLayout>
+                          </GridLayout>
+                          <GridLayout columns="25,*,*,*" rows="20" width="100%" *ngIf="detail.length == 0">
+                            <Label col="0" colSpan="2" text="Race not drawn"></Label>
+                            <Label col="2" text="-"></Label>
+                            <Label col="3" text="-"></Label>
+                          </GridLayout>
+                        </StackLayout>
+                        <StackLayout class="claim" *ngIf="claiming != null">
+                          <Label text="Claim {{claiming}}?" class="horse-body-label"></Label>
+                          <StackLayout orientation="horizontal" width="50%" horizontalAlignment="center">
+                            <Button [isEnabled]="buttonEnabled" (tap)="claim()" class="btn confirm" text="Confirm"></Button>
+                            <Button (tap)="cancel()" class="btn cancel" text="Cancel"></Button>
+                          </StackLayout>
+                        </StackLayout>
+                      </StackLayout>
+                    </CardView>
+                  </StackLayout>
+                </CardView>
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+      </template>
+    </ListView>
+    <GridLayout rows="*" columns="*" *ngIf="isLoading">
+      <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+    </GridLayout>
+  </GridLayout>
+</StackLayout>

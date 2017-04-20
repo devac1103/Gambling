@@ -1,0 +1,31 @@
+<ActionBar title="Races"></ActionBar>
+
+<StackLayout>
+  <dashboard></dashboard>
+  <GridLayout columns="*, *" rows="*, *, *">
+    <CardView row="0" colspan="2" class="action-button" elevation="40">
+      <StackLayout (tap)="goTo('raceViewer')" verticalAlignment="center">
+        <label text="&#xf26c;" class="font-awesome icon"></label>
+        <label text="Watch Live" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="1" col="0" class="action-button" elevation="40">
+      <StackLayout class="action-button" (tap)="goTo('upcoming')" verticalAlignment="center">
+        <label text="&#xf1ea;" class="font-awesome icon"></label>
+        <label text="Upcoming" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="1" col="1" class="action-button" elevation="40">
+      <StackLayout class="action-button" (tap)="goTo('results')" verticalAlignment="center">
+        <label text="&#xf0cb;" class="font-awesome icon"></label>
+        <label text="Results" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="2" colspan="2" class="action-button" elevation="40">
+      <StackLayout class="action-button" (tap)="goTo('tracks')" verticalAlignment="center">
+        <Image src="~/assets/track.png" height="50"></Image>
+        <label text="Tracks" class="label"></label>
+      </StackLayout>
+    </CardView>
+  </GridLayout>
+</StackLayout>

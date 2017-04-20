@@ -1,0 +1,18 @@
+<GridLayout columns="55,100,*,48,30" rows="auto" width="100%" verticalAlignment="top" class="table-header table-body">
+  <Label col="0" row="0" text="Date"></Label>
+  <Label col="1" row="0" text="Track"></Label>
+  <Label col="2" row="0" text="Race Type"></Label>
+  <Label col="3" row="0" text="Purse" horizontalAlignment="center"></Label>
+  <Label col="4" row="0" text="Post" horizontalAlignment="center"></Label>
+</GridLayout>
+<GridLayout columns="55,100,*,48,30" rows="*" width="100%" *ngFor="let race of races; let i = index" class="table-body">
+  <Label col="0" row="{{i}}" [text]="race.raceDate" textwrap="true"></Label>
+  <Label col="1" row="{{i}}" [text]="race.track" textwrap="true"></Label>
+  <Label col="2" row="{{i}}" [text]="race.description" textwrap="true"></Label>
+  <Label col="3" row="{{i}}" [text]="userService.commaSeparateNumber(race.purse)" horizontalAlignment="center"></Label>
+  <Label col="4" row="{{i}}" [text]="race.postDrawn ? race.postDrawn : '-'" horizontalAlignment="center"></Label>
+</GridLayout>
+
+<GridLayout columns="*" rows="auto" width="100%" *ngIf="races.length == 0" class="table-body">
+  <Label text="No upcoming races"></Label>
+</GridLayout>

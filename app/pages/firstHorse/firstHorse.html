@@ -1,0 +1,38 @@
+<ActionBar title="Off and Pacing">
+  <NavigationButton text="" visibility="collapse"></NavigationButton>
+</ActionBar>
+
+<StackLayout>
+  <StackLayout orientation="horizontal">
+    <Image class="intro-character" src="~/assets/driver-full.png" width="50%" verticalAlignment="top"></Image>
+    <StackLayout width="100%" height="100%" *ngIf="step == 1" verticalAlignment="top">
+      <StackLayout class="body">
+        <Label class="speech small" textWrap="true" text="Hi, I'm Dan. I'm here to help you get started."></Label>
+        <Label #bubble class="speech small" textWrap="true" [text]="bubble2"></Label>
+        <TextField hint="Stable name" [(ngModel)]="username"></TextField>
+
+        <Button text="Submit" class="btn selected" (tap)="submitStable()" [isEnabled]="buttonEnabled"></Button>
+      </StackLayout>
+    </StackLayout>
+    <StackLayout width="100%" height="100%" *ngIf="step == 2">
+      <StackLayout class="body">
+      <GridLayout rows="auto, auto, auto, auto, auto, *" columns="*">
+        <StackLayout row="0" class="speech">
+          <Label text="To start your stable you receive a 2 year old horse that's ready to start racing." textwrap="true"></Label>
+        </StackLayout>
+        <StackLayout row="1" class="speech">
+          <Label #bubble [text]="bubble3" textwrap="true"></Label>
+        </StackLayout>
+        <TextField row="2" hint="Horse Name" [(ngModel)]="name"></TextField>
+
+        <GridLayout row="3" rows="auto" columns="*,*">
+          <Button col="0" text="Colt" class="btn" [class.selected]="genderSelected == 0" (tap)="colt()"></Button>
+          <Button col="1" text="Filly" class="btn" [class.selected]="genderSelected == 1" (tap)="filly()"></Button>
+        </GridLayout>
+
+        <Button row="4" text="Submit" [isEnabled]="buttonEnabled" class="btn selected" (tap)="submit()"></Button>
+        <Label row="5"></Label>
+      </GridLayout>
+    </StackLayout>
+  </StackLayout>
+</StackLayout>

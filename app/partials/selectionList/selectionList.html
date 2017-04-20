@@ -1,0 +1,19 @@
+<StackLayout class="list">
+  <Label [text]="title" class="title"></Label>
+  <ListView #thisList divider=@null [items]="list">
+    <template let-item="item">
+      <GridLayout rows="auto" columns="*, auto" (tap)="close(item)" class="selections">
+        <Label col="0" text="{{item.name}}" textwrap="true" class="name"></Label>
+
+        <StackLayout col="1" orientation="horizontal" class="fee" *ngIf="item.fee">
+          <Image src="~/assets/coins.png" height="15"></Image>
+          <Label text=" {{item.fee}}"></Label>
+        </StackLayout>
+
+        <StackLayout col="1" orientation="horizontal" class="stats" *ngIf="item.stats">
+          <Label text=" {{item.stats}}" verticalAlignment="center"></Label>
+        </StackLayout>
+      </GridLayout>
+    </template>
+  </ListView>
+</StackLayout>

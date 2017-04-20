@@ -1,0 +1,24 @@
+<ActionBar title="Tracks"></ActionBar>
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <ListView #tracksListView [items]="tracks" height="100%" class="list-view" [visibility]="!isLoading ? 'visible' : 'collapse'">
+    <template let-item="item" let-i="index">
+      <!-- Track card -->
+      <StackLayout class="card">
+        <StackLayout orientation="horizontal" class="card-header">
+          <StackLayout verticalAlignment="center" width="65%" (tap)="goToTrack(item.id)">
+            <Label text="{{item.name}}" class="name" textwrap="true"></Label>
+            <Label text="{{item.size}} ({{item.horsesOnGate}} wide)" class="detail"></Label>
+          </StackLayout>
+          <StackLayout width="35%" verticalAlignment="center" class="records">
+            <label text="{{item.record}}" class="record"></label>
+            <label text="{{item.recordHolder}}" class="holder"></label>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </template>
+  </ListView>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

@@ -1,0 +1,31 @@
+<ActionBar title="Standings"></ActionBar>
+
+<StackLayout>
+  <dashboard></dashboard>
+  <GridLayout columns="*, *" rows="*, *">
+    <CardView row="0" col="0" class="action-button" elevation="40">
+      <StackLayout class="action-button" (tap)="goTo('topHorses')" verticalAlignment="center">
+        <Image src="~/assets/barn.png" height="50"></Image>
+        <label text="Horses" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="0" col="1" class="action-button" elevation="40">
+      <StackLayout class="action-button" (tap)="goTo('stakes')" verticalAlignment="center">
+        <label text="S" class="stakes"></label>
+        <label text="Stakes" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="1" col="0" class="action-button" elevation="40">
+      <StackLayout class="action-button" (tap)="goTo('topDrivers')" verticalAlignment="center">
+        <label text="&#xf1b3;" class="icon"></label>
+        <label text="Drivers" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="1" col="1" class="action-button" elevation="40">
+      <StackLayout class="action-button" (tap)="goTo('topOwners')" verticalAlignment="center">
+        <label text="&#xf0c0;" class="icon"></label>
+        <label text="Owners" class="label"></label>
+      </StackLayout>
+    </CardView>
+  </GridLayout>
+</StackLayout>

@@ -1,0 +1,20 @@
+.title {
+  font-size: 28;
+  font-weight: bold;
+  padding: 10;
+  background-color: #303F9F;
+  color: white;
+}
+.name {
+  font-size: 25;
+}
+.fee {
+  font-size: 20;
+  padding: 0 5;
+  text-align: right;
+}
+.stats {
+  font-size: 12;
+  text-align: right;
+  padding-right: 3;
+}

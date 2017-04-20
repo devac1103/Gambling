@@ -1,0 +1,66 @@
+<ActionBar title="Owners"></ActionBar>
+
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <GridLayout rows="auto" columns="*,auto,auto,auto,auto,auto,auto,*" width="100%" horizontalAlignment="center">
+    <Label col="0"></Label>
+    <Label col="1" text="All" class="tab" [class.selected]="range == 'all'" (tap)="setRange('all')"></Label>
+    <Label col="2" text="Season" class="tab" [class.selected]="range == 'season'" (tap)="setRange('season')"></Label>
+    <Label col="3" text=" | " verticalAlignment="center"></Label>
+    <Label col="4" text="Average" class="tab" [class.selected]="type == 'average'" (tap)="setType('average')"></Label>
+    <Label col="5" text="Wins" class="tab" [class.selected]="type == 'wins'" (tap)="setType('wins')"></Label>
+    <Label col="6" text="Purses" class="tab" [class.selected]="type == 'purses'" (tap)="setType('purses')"></Label>
+    <Label col="7"></Label>
+  </GridLayout>
+  <ScrollView>
+  <StackLayout width="100%">
+    <StackLayout *ngFor="let owner of owners; let i = index" [visibility]="!isLoading ? 'visible' : 'collapse'">
+      <StackLayout orientation="horizontal" width="100%" class="card" *ngIf="i < 3">
+        <StackLayout width="20%" verticalAlignment="center">
+          <Label *ngIf="i == 0" text="1st" class="gold medal"></Label>
+          <Label *ngIf="i == 1" text="2nd" class="silver medal"></Label>
+          <Label *ngIf="i == 2" text="3rd" class="bronze medal"></Label>
+        </StackLayout>
+        <StackLayout width="50%" verticalAlignment="center">
+          <Label (tap)="goToOwner(owner.id)" text="{{owner.username}}" textwrap="true" class="name"></Label>
+          <StackLayout orientation="horizontal" class="detail">
+            <Label text="Purses: "></Label>
+            <Image src="~/assets/coins.png" height="10"></Image>
+            <Label text=" {{userService.commaSeparateNumber(owner.purses)}}"></Label>
+          </StackLayout>
+        </StackLayout>
+        <StackLayout width="30%" class="stats" verticalAlignment="center">
+          <GridLayout width="100%" rows="auto,auto,auto,auto,auto" columns="*,auto">
+            <Label row="0" col="0" text="Starts: " class="stat"></Label>
+            <Label row="0" col="1" text="{{owner.starts}}"></Label>
+            <Label row="1" col="0" text="Wins: " class="stat"></Label>
+            <Label row="1" col="1" text="{{owner.wins}}"></Label>
+            <Label row="2" col="0" text="Places: " class="stat"></Label>
+            <Label row="2" col="1" text="{{owner.places}}"></Label>
+            <Label row="3" col="0" text="Shows: " class="stat"></Label>
+            <Label row="3" col="1" text="{{owner.shows}}"></Label>
+            <Label row="4" col="0" text="Average: " class="stat"></Label>
+            <Label row="4" col="1" text="{{owner.average}}"></Label>
+          </GridLayout>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout orientation="horizontal" width="100%" class="sm-card" *ngIf="i >= 3">
+        <GridLayout rows="auto" columns="auto,*,auto" width="100%">
+          <StackLayout row="{{i}}" col="0" width="20%" verticalAlignment="center">
+            <Label text="{{i+1}}" class="place"></Label>
+          </StackLayout>
+          <StackLayout row="{{i}}" col="1" verticalAlignment="center">
+            <Label (tap)="goToOwner(owner.id)" text="{{owner.username}}" textwrap="true" class="sm-name"></Label>
+          </StackLayout>
+          <StackLayout row="{{i}}" col="2" orientation="horizontal" class="stats" verticalAlignment="center">
+            <Label [text]="type == 'purses' ? userService.commaSeparateNumber(owner.purses) : '('+owner.starts+'-'+owner.wins+'-'+owner.places+'-'+owner.shows+' '+owner.average+')'"></Label>
+          </StackLayout>
+        </GridLayout>
+      </StackLayout>
+    </StackLayout>
+  </StackLayout>
+  </ScrollView>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

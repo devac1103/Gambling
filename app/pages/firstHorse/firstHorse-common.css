@@ -1,0 +1,14 @@
+.body {
+  margin: 17;
+}
+.speech {
+  border-radius: 5;
+  margin: 5 0;
+  padding: 5;
+  background-color: #FFFFFF;
+}
+.intro-character {
+  margin-top: 20;
+  margin-left: 5;
+  width: 40%;
+}

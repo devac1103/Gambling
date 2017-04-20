@@ -1,0 +1,191 @@
+.btn {
+  background-color: #607D8B;
+  color: white;
+  font-size: 16;
+  height: 40;
+  margin: 2;
+  radius: 1;
+}
+.retire-btn {
+  background-color: #607D8B;
+  color: white;
+  font-size: 16;
+  height: 40;
+  margin: 4;
+}
+.withdraw {
+  background-color: #607D8B;
+  color: white;
+  font-size: 16;
+  padding: 5 10;
+}
+.sell-card {
+  padding: 5;
+  background-color: #C5CAE9;
+}
+.add-horse-card {
+  padding: 20;
+  background-color: #BDBDBD;
+  opacity: 0.8;
+}
+.add-horse {
+  background-color: #607D8B;
+  color: white;
+  font-size: 16;
+  padding: 5 10;
+}
+.details {
+  padding: 10;
+}
+.name {
+  font-weight: bold;
+  font-size: 18;
+  margin: 0 5;
+}
+.title {
+  font-size: 18;
+  text-align: center;
+  margin: 0 5;
+}
+.small-print {
+  text-align: center;
+  margin: 0 5;
+}
+.card-stats {
+  font-size: 14;
+}
+.post-button {
+  background-color: #757575;
+  height: 80;
+}
+.horse-card {
+  margin: 3;
+  radius: 1;
+  padding: 0;
+  /*border: solid;
+  border-width: 1;
+  border-color: #BDBDBD;*/
+}
+.card-header {
+  padding: 5;
+}
+.horse-info {
+  margin: 0 5;
+}
+.meter {
+  border: solid;
+  border-color: #BDBDBD;
+  border-width: 1;
+  height: 13;
+  width: 80;
+}
+.red {
+  background-color: #D32F2F;
+}
+.yellow {
+  background-color: #FFC200;
+}
+.green {
+  background-color: #27E833;
+}
+.stamina {
+  color: blue;
+}
+.accel {
+  color: #CCCC00;
+}
+.heart {
+  color: red;
+}
+.horse-body {
+  margin-top: 10;
+  padding-bottom: 5;
+  background-color: #C5CAE9;
+  border: solid;
+  border-width: 0 1 1 0;
+  border-color: #BDBDBD;
+}
+.horse-btns {
+  width: 100%;
+}
+.stud-fee {
+  background-color: #FFFFFF;
+  margin: 4;
+  padding: 2;
+  width: 100%;
+  font-size: 18;
+}
+.sire {
+  background-color: #FFFFFF;
+  margin: 4;
+  border-width: 0;
+  padding: 2;
+  width: 95%;
+  font-size: 18;
+}
+.retired {
+  font-size: 18;
+  margin: 0 4 0 10;
+}
+.retired-lbl {
+  color: #D32F2F;
+  font-weight: bold;
+  text-align: right;
+}
+.horse-body-label {
+  font-size: 20;
+  margin-top: 10;
+  text-align: center;
+}
+.no-button {
+  background-color: #757575;
+  text-align: center;
+  width: 100%;
+  margin: 5 10;
+}
+.warn-button {
+  background-color: #D32F2F;
+  text-align: center;
+  width: 50%;
+  margin: 5 10;
+}
+.confirm-button {
+  background-color: #303F9F;
+  margin-bottom: 10;
+}
+.cancel-button {
+  background-color: #757575;
+}
+.table-header {
+  margin: 5 0 2 5;
+}
+.race-title {
+  font-weight: bold;
+}
+.stats {
+  font-size: 12;
+  color: #757575;
+}
+.pick-driver {
+  font-size: 12;
+  margin-right: 5;
+  color: #757575;
+}
+.enter-race {
+  margin: 10;
+}
+.options {
+  font-size: 14;
+  padding: 5 0;
+}
+.label {
+  margin: 0 5;
+}
+.driver-selected {
+  width: 100%;
+  margin: 0 5;
+}
+.high-light {
+  background-color: #607D8B;
+  color: #FFFFFF;
+}

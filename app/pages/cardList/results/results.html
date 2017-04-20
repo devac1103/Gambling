@@ -1,0 +1,81 @@
+<ActionBar title="Race Results">
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <GridLayout rows="*">
+    <ListView #raceListView [items]="races" [visibility]="!isLoading ? 'visible' : 'collapse'">
+      <template let-item="item" let-i="index">
+        <!-- Race card -->
+        <StackLayout width="100%">
+          <!-- <CardView> -->
+          <StackLayout class="card">
+            <StackLayout orientation="horizontal" class="card-header">
+              <StackLayout (tap)="toggleRaceBody(item.id, i)" verticalAlignment="center" width="55%">
+                <Label text="{{item.track}}" class="name" textwrap="true"></Label>
+                <Label text="{{item.startDate}}" class="detail"></Label>
+              </StackLayout>
+              <StackLayout width="20%" verticalAlignment="center">
+                <Button (tap)="viewProgram(item.id)" class="program" text="&#xf1ea;" textwrap="true"></Button>
+                </StackLayout>
+              <StackLayout width="25%" verticalAlignment="center" class="date">
+                <label text="Week: {{item.week}}"></label>
+                <label text="Season: {{item.season}}"></label>
+              </StackLayout>
+            </StackLayout>
+          <!-- Race Body -->
+          <StackLayout height="auto" class="race-body" *ngIf="visibleID == item.id">
+            <GridLayout columns="30,60,*,48,48" rows="*" verticalAlignment="top" class="table-header">
+              <Label col="1" text="Time"></Label>
+              <Label col="2" text="Race Type"></Label>
+              <Label col="3" text="Entries" horizontalAlignment="center"></Label>
+              <Label col="4" text="Purse" horizontalAlignment="center"></Label>
+            </GridLayout>
+            <StackLayout *ngFor="let race of card; let j = index">
+              <CardView>
+              <StackLayout class="races">
+              <GridLayout (tap)="toggleRaceDetail(race)" columns="30,60,*,48,48" rows="auto">
+                <label col="0" row="{{j}}" text="&#xf144;" class="play" (tap)="showRace(race.id, $event)" *ngIf="race.run == 1"></label>
+                <Label col="1" row="{{j}}" [text]="race.time" verticalAlignment="center"></Label>
+                <Label col="2" row="{{j}}" [text]="race.description" verticalAlignment="center" textwrap="true"></Label>
+                <Label col="3" row="{{j}}" [text]="race.numEntries" verticalAlignment="center" horizontalAlignment="center"></Label>
+                <Label col="4" row="{{j}}" [text]="userService.commaSeparateNumber(race.purse)" verticalAlignment="center" horizontalAlignment="right"></Label>
+              </GridLayout>
+              <CardView>
+              <StackLayout width="100%" height="auto" class="results" *ngIf="detailID == race.id">
+                <GridLayout [columns]="race.description.indexOf('Claim') != -1  ? '30,*,*,*,45,*' : '30,*,*,*'" rows="*" class="table-header">
+                  <Label col="1" text="Horse"></Label>
+                  <Label col="2" text="Driver"></Label>
+                  <Label col="3" text="Owner"></Label>
+                  <Label *ngIf="race.description.indexOf('Claim') != -1" col="4" text="Claims" horizontalAlignment="center"></Label>
+                  <Label *ngIf="race.description.indexOf('Claim') != -1" col="5" text="Claimed by"></Label>
+                </GridLayout>
+                <GridLayout [columns]="race.description.indexOf('Claim') != -1  ? '30,*,*,*,45,*' : '30,*,*,*'" rows="auto" class="row" *ngFor="let horse of detail; let k = index">
+                  <Label col="0" row="{{k}}" [text]="horse.post" class="post-box post-{{horse.post}}"></Label>
+                  <Label (tap)="goToHorse(horse.horseID)" col="1" row="{{k}}" [text]="horse.horseName" textwrap="true" verticalAlignment="center"></Label>
+                  <Label (tap)="goToDriver(horse.driverID)" col="2" row="{{k}}" [text]="horse.driverName" textwrap="true" verticalAlignment="center"></Label>
+                  <Label (tap)="goToOwner(horse.ownerID)" col="3" row="{{k}}" [text]="horse.ownerName" textwrap="true" verticalAlignment="center"></Label>
+                  <Label *ngIf="race.description.indexOf('Claim') != -1" col="4" row="{{k}}" [text]="horse.claims" horizontalAlignment="center" verticalAlignment="center"></Label>
+                  <Label (tap)="goToOwner(horse.claimedByID)" *ngIf="race.description.indexOf('Claim') != -1" col="5" row="{{k}}" [text]="horse.claimedBy" textwrap="true" verticalAlignment="center"></Label>
+                </GridLayout>
+              </StackLayout>
+              </CardView>
+            </StackLayout>
+            </CardView>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+        <!-- </CardView> -->
+        </StackLayout>
+      </template>
+    </ListView>
+    <GridLayout rows="*" columns="*" *ngIf="isLoading">
+      <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+    </GridLayout>
+  </GridLayout>
+</StackLayout>

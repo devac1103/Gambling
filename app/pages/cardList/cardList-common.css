@@ -1,0 +1,125 @@
+.card {
+  margin: 3;
+  radius: 1;
+  padding: 0;
+
+  /*border: solid;
+  border-color: #BDBDBD;
+  border-width: 1;*/
+}
+.date {
+  font-size: 14;
+  text-align: right;
+}
+.card-header {
+  padding: 10;
+}
+.race-body {
+  font-size: 10;
+  padding: 2 0;
+  padding-bottom: 5;
+}
+.records {
+  text-align: center;
+}
+.record {
+  font-size: 14;
+  font-weight: bold;
+}
+.holder {
+  font-size: 12;
+  color: #BDBDBD;
+}
+.table-header {
+  margin: 0 0 2 0;
+  font-weight: bold;
+  padding: 0 2;
+}
+.name {
+  font-weight: bold;
+  font-size: 18;
+}
+.races {
+  margin: 2 0;
+  padding: 2;
+  min-height: 20;
+  background-color: #C5CAE9;
+  /*border: solid;
+  border-color: #BDBDBD;
+  border-width: 1 0 0 0;*/
+}
+.results {
+  color: black;
+  background-color: #BDBDBD;
+  margin: 2;
+  padding: 2 0;
+}
+.row {
+  padding: 0;
+  border: solid;
+  border-width: 1 0 0 0;
+  border-color: #757575;
+}
+.detail {
+  font-size: 14;
+  color: #757575;
+  padding-left: 10;
+}
+.claim {
+  margin: 10 0;
+}
+.horse-body-label {
+  font-size: 20;
+  text-align: center;
+}
+.post-box {
+  width: 20;
+  height: 20;
+  margin: 3 0;
+  padding: 3;
+  text-align: center;
+  border-color: black;
+  border: solid;
+  border-width: 1;
+}
+.post-1 {
+  color: #FFFFFF;
+  background-color: #BC261A;
+}
+.post-2 {
+  color: #FFFFFF;
+  background-color: #2A41F5;
+}
+.post-3 {
+  color: #212121;
+  background-color: #EBEBEB;
+}
+.post-4 {
+  color: #FFFFFF;
+  background-color: #44952A;
+}
+.post-5 {
+  color: #FFFFFF;
+  background-color: #2D2D2D;
+}
+.post-6 {
+  color: #212121;
+  background-color: #FFFD61;
+}
+.post-7 {
+  color: #212121;
+  background-color: #F19FCA;
+}
+.post-8 {
+  color: #FFFFFF;
+  background-color: #999999;
+}
+.post-9 {
+  color: #FFFFFF;
+  background-color: #8B29C5;
+}
+.post-10 {
+  color: #FFFFFF;
+  background-image: url("~/assets/post-10.png");
+  background-size: 100% 100%;
+}

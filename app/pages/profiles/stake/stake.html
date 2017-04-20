@@ -1,0 +1,57 @@
+<ActionBar title="{{name}}">
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <ScrollView [visibility]="!isLoading ? 'visible' : 'collapse'">
+    <StackLayout width="100%">
+      <StackLayout width="100%" class="card">
+        <GridLayout columns="3*,*">
+          <Label col="0" text="{{name}}" class="race-title" textwrap="true"></Label>
+          <StackLayout col="1" orientation="horizontal" horizontalAlignment="right" class="purse">
+            <Image src="~/assets/coins.png" height="10"></Image>
+            <Label [text]="purse"></Label>
+          </StackLayout>
+        </GridLayout>
+        <Label text="Schedule: {{weeks}}" textwrap="true" class="small-print"></Label>
+        <Label text="{{horseType}}" class="small-print"></Label>
+      </StackLayout>
+      <StackLayout>
+        <Label text="Upcoming Races" class="table-title" (tap)="upcomingOpen = !upcomingOpen"></Label>
+        <StackLayout *ngIf="upcomingOpen">
+          <GridLayout columns="*" rows="auto" width="100%" *ngIf="upcoming.length == 0" class="table-body">
+            <Label text="No upcoming races"></Label>
+          </GridLayout>
+        </StackLayout>
+        <Label text="Results" class="table-title" (tap)="resultsOpen = !resultsOpen"></Label>
+        <StackLayout *ngIf="resultsOpen">
+          <GridLayout columns="30,60,90,110,80" rows="*" width="100%" verticalAlignment="top" class="table-header table-body">
+            <Label col="1" text="Week"></Label>
+            <Label col="2" text="Horse"></Label>
+            <Label col="3" text="Owner"></Label>
+            <Label col="4" text="Time" horizontalAlignment="center"></Label>
+          </GridLayout>
+          <GridLayout columns="65,*,85,40" width="100%" class="table-body" *ngFor="let race of results; let i = index">
+            <label col="0" (tap)="goToRace(race.raceID)" text="&#xf144;" class="play" horizontalAlignment="center"></label>
+            <Label col="1" [text]="race.week"></Label>
+            <Label col="2" [text]="race.horseName" textwrap="true"></Label>
+            <Label col="3" [text]="race.ownerName" textwrap="true"></Label>
+            <Label col="4" [text]="race.time" horizontalAlignment="center"></Label>
+          </GridLayout>
+          <GridLayout columns="*" rows="auto" width="100%" *ngIf="results.length == 0" class="table-body">
+            <Label text="No race results"></Label>
+          </GridLayout>
+        </StackLayout>
+        <Label text="Past Winners" class="table-title"></Label>
+        </StackLayout>
+    </StackLayout>
+  </ScrollView>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

@@ -1,0 +1,16 @@
+.faq {
+  font-size: 20;
+  font-family: "FontAwesome";
+  text-align: right;
+  padding-left: 20;
+  padding-right: 20;
+  padding-bottom: 20;
+}
+.news {
+  font-size: 20;
+  font-family: "FontAwesome";
+  text-align: left;
+  padding-left: 20;
+  padding-right: 20;
+  padding-bottom: 20;
+}

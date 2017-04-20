@@ -1,0 +1,57 @@
+.card {
+  background-color: #FFFFFF;
+  border: solid;
+  border-color: #BDBDBD;
+  border-width: 1;
+  padding: 3;
+}
+.sm-card {
+  background-color: #C5CAE9;
+  border: solid;
+  border-color: #BDBDBD;
+  border-width: 1;
+  padding: 3;
+}
+.place {
+  font-size: 16;
+  text-align: center;
+}
+.name {
+  font-size: 20;
+  font-weight: bold;
+}
+.sm-name {
+  font-size: 16;
+  font-weight: bold;
+}
+.sm-horse-name {
+  font-size: 12;
+  font-weight: bold;
+}
+.detail {
+  padding-left: 10;
+  font-size: 14;
+  color: #757575;
+}
+.sm-detail {
+  padding: 3;
+  font-size: 12;
+  color: #757575;
+}
+.stats {
+  font-size: 12;
+  padding-right: 3;
+}
+.stat {
+  padding-right: 3;
+  text-align: right;
+}
+.gold {
+  background-color: #FFD700;
+}
+.silver {
+  background-color: #CDD0D7;
+}
+.bronze {
+  background-color: #CD7F32;
+}

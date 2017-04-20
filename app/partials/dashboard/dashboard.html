@@ -1,0 +1,29 @@
+<GridLayout rows="auto" columns="*">
+<DockLayout width="100%" stretchLastChild="true" class="dashboard">
+  <StackLayout dock="left" verticalAlignment="bottom">
+    <Button class="news" (tap)="goToNews()" text="&#xf09e;"></Button>
+  </StackLayout>
+
+  <StackLayout dock="right">
+    <GridLayout rows="*" columns="auto">
+      <DockLayout height="100%">
+        <StackLayout dock="top" class="date">
+          <Label text="Week: {{week}}"></Label>
+          <Label text="Season: {{season}}"></Label>
+        </StackLayout>
+        <Stacklayout dock="bottom">
+          <Button (tap)="goToFaq()" text="&#xf29c;" class="faq"></Button>
+        </Stacklayout>
+      </DockLayout>
+    </GridLayout>
+  </StackLayout>
+
+  <StackLayout dock="bottom">
+    <Label (tap)="goToOwner()" [text]="username" class="user-name" textwrap="true"></Label>
+    <StackLayout orientation="horizontal" (tap)="goToPurchase()" horizontalAlignment="center">
+      <Image src="~/assets/coins.png" height="12"></Image>
+      <Label text="{{coinBalance}}" class="coin-balance"></Label>
+    </StackLayout>
+  </StackLayout>
+</DockLayout>
+</GridLayout>

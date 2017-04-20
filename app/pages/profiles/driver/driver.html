@@ -1,0 +1,45 @@
+<ActionBar title="{{name}}">
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <ScrollView [visibility]="!isLoading ? 'visible' : 'collapse'">
+    <StackLayout width="100%">
+      <StackLayout orientation="horizontal" width="100%" class="card">
+        <Image src="~/assets/drivers/{{image}}" width="30%"></Image>
+        <StackLayout width="70%">
+          <StackLayout>
+            <Label text="{{name}}" class="name"></Label>
+            <Label text="{{age}}" class="detail"></Label>
+          </StackLayout>
+          <StackLayout orientation="horizontal">
+            <StackLayout class="bio">
+              <Label text="{{bio}}" textWrap="true"></Label>
+            </StackLayout>
+            <StackLayout class="stats">
+              <Label text="Starts: {{starts}}"></Label>
+              <Label text="Wins: {{wins}}"></Label>
+              <Label text="Places: {{places}}"></Label>
+              <Label text="Shows: {{shows}}"></Label>
+              <Label text="Average: {{average}}"></Label>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout>
+        <Label text="Upcoming Races" class="table-title" (tap)="upcomingOpen = !upcomingOpen"></Label>
+        <upcoming-races [races]="upcomingRaces" *ngIf="upcomingOpen"></upcoming-races>
+        <Label text="Results" class="table-title" (tap)="resultsOpen = !resultsOpen"></Label>
+        <past-races [races]="pastRaces" mode=1 *ngIf="resultsOpen"></past-races>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

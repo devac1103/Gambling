@@ -1,0 +1,62 @@
+.list-view {
+  background-color: #FFFFFF;
+}
+.profile {
+  text-align: right;
+  color: #607D8B;
+  font-size: 25;
+  font-family: fontawesome-webfont;
+}
+.gauge {
+  margin-left: 20;
+  width: 25;
+  font-family: fontawesome-webfont;
+  font-size: 15;
+  text-align: center;
+}
+.tab {
+  background-color: #757575;
+  color: white;
+  text-align: center;
+  font-size: 14;
+  padding: 2 5;
+  margin: 2;
+  border: solid;
+  border-width: 1;
+  border-color: #757575;
+}
+.selected {
+  background-color: #607D8B;
+  color: white;
+}
+.stakes {
+  color: #607D8B;
+  border-color: #607D8B;
+  font-size: 20;
+  border: solid;
+  border-width: 2;
+  text-align: right;
+  height: 26;
+  padding: 3;
+  width: 26;
+  border-radius: 13;
+}
+.enabled {
+  color: yellow;
+  border-color: #607D8B;
+  font-size: 20;
+  border: solid;
+  padding: 3;
+  border-width: 2;
+  text-align: right;
+  height: 26;
+  width: 26;
+  border-radius: 13;
+  background-color: #607D8B;
+}
+.checkbox {
+  color: #607D8B;
+  font-family: fontawesome-webfont;
+  text-align: left;
+  width: 20;
+}

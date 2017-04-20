@@ -1,0 +1,26 @@
+.purse {
+  font-size: 14;
+}
+.race-title {
+  font-size: 16;
+  font-weight: bold;
+}
+.small-print {
+  font-size: 12;
+}
+.stakes-card {
+  color: black;
+  background-color: #C5CAE9;
+  margin: 3;
+  padding: 5;
+  border: solid;
+  border-width: 1;
+  border-color: #757575;
+}
+.time {
+  font-weight: bold;
+  min-height: 20;
+}
+.track-image {
+  margin: 5;
+}

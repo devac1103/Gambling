@@ -1,0 +1,58 @@
+<ActionBar title="Stakes"></ActionBar>
+
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <StackLayout width="100%">
+    <GridLayout rows="auto" columns="*,auto,auto,auto,auto,auto,*" width="100%" horizontalAlignment="center">
+      <Label col="0"></Label>
+      <Label col="1" text="2 yr" class="tab" [class.selected]="range == '2'" (tap)="two()">></Label>
+      <Label col="2" text="3 yr" class="tab" [class.selected]="range == '3'" (tap)="three()"></Label>
+      <Label col="3" text=" | " verticalAlignment="center"></Label>
+      <Label col="4" text="Colt" class="tab" [class.selected]="type == 'colt'" (tap)="colt()"></Label>
+      <Label col="5" text="Filly" class="tab" [class.selected]="type == 'filly'" (tap)="filly()"></Label>
+      <Label col="6"></Label>
+    </GridLayout>
+    <ScrollView>
+      <StackLayout>
+      <StackLayout *ngFor="let horse of horses; let i = index" [visibility]="!isLoading ? 'visible' : 'collapse'">
+        <StackLayout orientation="horizontal" width="100%" class="card" *ngIf="i < 3">
+          <StackLayout width="20%" verticalAlignment="center">
+            <Label *ngIf="i == 0" text="1st" class="gold medal"></Label>
+            <Label *ngIf="i == 1" text="2nd" class="silver medal"></Label>
+            <Label *ngIf="i == 2" text="3rd" class="bronze medal"></Label>
+          </StackLayout>
+          <StackLayout width="60%" verticalAlignment="center">
+            <Label text="{{horse.name}}" (tap)="goToHorse(horse.id)" textwrap="true" class="name"></Label>
+            <StackLayout orientation="horizontal" class="detail">
+              <Label text="Purses: "></Label>
+              <Image src="~/assets/coins.png" height="10"></Image>
+              <Label text=" {{userService.commaSeparateNumber(horse.purses)}}"></Label>
+            </StackLayout>
+            <Label text="Owned by {{horse.ownerName}}" (tap)="goToOwner(horse.ownerID)" textwrap="true" class="detail"></Label>
+          </StackLayout>
+          <StackLayout width="20%" class="stats" verticalAlignment="center">
+            <Label text="Points: {{horse.points}}"></Label>
+          </StackLayout>
+        </StackLayout>
+        <GridLayout rows="auto" columns="35, *, *, 35" class="sm-card" *ngIf="i >= 3">
+          <StackLayout col="0" verticalAlignment="center">
+            <Label text="{{i+1}}" class="place"></Label>
+          </StackLayout>
+          <StackLayout col="1" verticalAlignment="center">
+            <Label (tap)="goToHorse(horse.id)" text="{{horse.name}}" textwrap="true" class="sm-name"></Label>
+          </StackLayout>
+          <StackLayout col="2" verticalAlignment="center">
+            <Label text="{{horse.ownerName}}" (tap)="goToOwner(horse.ownerID)" textwrap="true" class="sm-detail"></Label>
+          </StackLayout>
+          <StackLayout col="3" class="stats" verticalAlignment="center">
+            <Label text="{{horse.points}}" horizontalAlignment="center"></Label>
+          </StackLayout>
+        </GridLayout>
+      </StackLayout>
+      </StackLayout>
+    </ScrollView>
+  </StackLayout>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

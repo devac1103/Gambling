@@ -1,0 +1,202 @@
+<ActionBar title="My Horses"></ActionBar>
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <GridLayout rows="auto" columns="*,auto,auto,auto,auto,auto,auto,auto,auto,*" width="100%" horizontalAlignment="center">
+    <Label col="0"></Label>
+    <Label col="1" text="All" class="tab" [class.selected]="ageFilter == -1" (tap)="age(-1)"></Label>
+    <Label col="2" text="2" class="tab" [class.selected]="ageFilter == 2" (tap)="age(2)"></Label>
+    <Label col="3" text="3" class="tab" [class.selected]="ageFilter == 3" (tap)="age(3)"></Label>
+    <Label col="4" text="4+" class="tab" [class.selected]="ageFilter == 4" (tap)="age(4)"></Label>
+    <Label col="5" text=" | " verticalAlignment="center"></Label>
+    <Label col="6" text="Both" class="tab" [class.selected]="sexFilter == -1" (tap)="sex(-1)"></Label>
+    <Label col="7" text="Colt" class="tab" [class.selected]="sexFilter == 0" (tap)="sex(0)"></Label>
+    <Label col="8" text="Filly" class="tab" [class.selected]="sexFilter == 1" (tap)="sex(1)"></Label>
+    <Label col="9"></Label>
+  </GridLayout>
+  <PullToRefresh (refresh)="refreshMe($event)">
+    <ListView #horsesListView [items]="horses" height="100%" class="list-view" [itemTemplateSelector]="templateSelector" [visibility]="!isLoading ? 'visible' : 'collapse'">
+      <template let-item="item" let-i="index" nsTemplateKey="racing-horse">
+        <!-- Horse card -->
+        <StackLayout width="100%">
+          <!-- <CardView> -->
+            <StackLayout class="horse-card" *ngIf="(item.age == ageFilter || ageFilter == -1) && (item.sex == sexFilter || sexFilter == -1)">
+              <StackLayout class="card-header" (tap)="toggleHorseBody(item.id, i, item)" orientation="horizontal">
+                <AbsoluteLayout>
+                  <Label text="1" class="badge" *ngIf="item.upcomingRaces.length == 0 && !item.salePrice"></Label>
+                  <Image src="~/assets/{{item.color.toLowerCase()}}-horse.png" height="80"></Image>
+                </AbsoluteLayout>
+                <StackLayout orientation="horizontal" verticalAlignment="center" height="100%">
+                  <StackLayout>
+                    <GridLayout columns="*,auto" rows="auto">
+                      <Label col="0" text="{{item.name}}" class="name" textwrap="true"></Label>
+                      <Label col="1" text="{{item.stats}}" class="card-stats"></Label>
+                    </GridLayout>
+                    <GridLayout columns="*,auto,auto" rows="auto">
+                      <StackLayout>
+                        <StackLayout orientation="horizontal">
+                          <Label text="&#xf0e4;" class="gauge" verticalAlignment="top"></Label>
+                          <GridLayout row="auto" col="auto" class="meter">
+                            <Label [width]="item.topSpeed" [class]="gaugeColor(item.topSpeed)" horizontalAlignment="left"></Label>
+                          </GridLayout>
+                        </StackLayout>
+                        <StackLayout orientation="horizontal">
+                          <Label text="&#xf21e;" class="stamina gauge" verticalAlignment="top"></Label>
+                          <GridLayout row="auto" col="auto" class="meter">
+                            <Label [width]="item.stamina" [class]="gaugeColor(item.stamina)" horizontalAlignment="left"></Label>
+                          </GridLayout>
+                        </StackLayout>
+                        <StackLayout orientation="horizontal">
+                          <Label text="&#xf0e7;" class="accel gauge" verticalAlignment="top"></Label>
+                          <GridLayout row="auto" col="auto" class="meter">
+                            <Label [width]="item.gateSpeed" [class]="gaugeColor(item.gateSpeed)" horizontalAlignment="left"></Label>
+                          </GridLayout>
+                        </StackLayout>
+                        <StackLayout orientation="horizontal">
+                          <Label text="&#xf004;" class="heart gauge" verticalAlignment="top"></Label>
+                          <GridLayout row="auto" col="auto" class="meter">
+                            <Label [width]="item.heart" [class]="gaugeColor(item.heart)" horizontalAlignment="left"></Label>
+                          </GridLayout>
+                        </StackLayout>
+                      </StackLayout>
+                      <StackLayout col="1">
+                        <Label text="{{item.age}} yr {{getGenderString(item.sex, item.age)}}" horizontalAlignment="right"></Label>
+                        <StackLayout orientation="horizontal" horizontalAlignment="right">
+                          <Button *ngIf="item.stakes == 1" text="S" class="enabled"></Button>
+                          <Button *ngIf="item.stakes != 1" (tap)="enableStakes(item.id, i, item)" text="S" class="stakes"></Button>
+                          <Button (tap)="goToHorse(item.id)" class="profile" text="&#xf298;"></Button>
+                        </StackLayout>
+                      </StackLayout>
+                    </GridLayout>
+                  </StackLayout>
+                </StackLayout>
+              </StackLayout>
+              <StackLayout *ngIf="enablingStakes == item.id && canAffordStakes" class="horse-body">
+                <Label text="Pay 100,000 coins to make {{item.name}} stake eligible?" textwrap="true" class="horse-body-label"></Label>
+                <StackLayout orientation="horizontal" width="50%" horizontalAlignment="center">
+                  <Button (tap)="stakes()" [isEnabled]="buttonEnabled" class="btn warn-button" text="Yes"></Button>
+                  <Button (tap)="enableStakes(item.id, i, item)" class="btn no-button" text="No"></Button>
+                </StackLayout>
+              </StackLayout>
+              <StackLayout *ngIf="enablingStakes == item.id && !canAffordStakes" class="horse-body">
+                <Label text="You need 100,000 coins for stake eligibility." textwrap="true" class="horse-body-label"></Label>
+              </StackLayout>
+              <!-- Horse Body -->
+              <StackLayout width="100%" height="auto" class="horse-body" *ngIf="visibleID == item.id">
+                <GridLayout rows="*" columns="*,*,*" horizontalAlignment="center" class="horse-btns">
+                  <Button class="btn" col="0" (tap)="showTab(0)" text="Results" *ngIf="currentTab == 1 || item.upcomingRaces.length != 0"></Button>
+                  <Button class="btn" col="0" (tap)="showTab(1, item)" text="Enter race" *ngIf="currentTab != 1 && item.upcomingRaces.length == 0"></Button>
+                  <Button class="btn" col="1" (tap)="showTab(2, item)" text="Sell"></Button>
+                  <Button class="btn" col="2" (tap)="showTab(3)" text="Retire"></Button>
+                </GridLayout>
+                <StackLayout *ngIf="currentTab == 0">
+                  <Label text="Upcoming Races" class="table-header"></Label>
+                  <upcoming-races [races]="item.upcomingRaces"></upcoming-races>
+                  <Button *ngIf="showWithdraw" [isEnabled]="buttonEnabled" class="btn withdraw" (tap)="withdraw(item.upcomingRaces[0].id)" text="Withdraw" horizontalAlignment="right"></Button>
+                  <Label text="Results" class="table-header"></Label>
+                  <past-races [races]="item.pastRaces" mode=0></past-races>
+                </StackLayout>
+                <StackLayout height="auto" *ngIf="currentTab == 1">
+                  <Label text="Eligible Races" class="table-header"></Label>
+                  <StackLayout *ngIf="!loadElig">
+                    <StackLayout orientation="horizontal" class="options" width="100%" horizontalAlignment="center">
+                      <StackLayout orientation="horizontal" (tap)="filterRaces('regular', item.filter)">
+                        <Label text="Regular" class="label" verticalAlignment="center"></Label>
+                        <Label [text]="item.filter.showReg ? '&#xf046;' : '&#xf096;'" class="checkbox" verticalAlignment="center"></Label>
+                      </StackLayout>
+
+                      <StackLayout orientation="horizontal" (tap)="filterRaces('stakes', item.filter)">
+                        <Label text="Stakes" class="label" verticalAlignment="center"></Label>
+                        <Label [text]="item.filter.showStakes ? '&#xf046;' : '&#xf096;'" class="checkbox" verticalAlignment="center"></Label>
+                      </StackLayout>
+
+                      <StackLayout orientation="horizontal" (tap)="filterRaces('claiming', item.filter)">
+                        <Label text="Claiming" class="label" verticalAlignment="center"></Label>
+                        <Label [text]="item.filter.showClaiming ? '&#xf046;' : '&#xf096;'" class="checkbox" verticalAlignment="center"></Label>
+                      </StackLayout>
+                    </StackLayout>
+                    <GridLayout columns="55,*,*,48,48" rows="*" width="100%" verticalAlignment="top" class="table-header table-body">
+                      <Label col="0" text="Date"></Label>
+                      <Label col="1" text="Track"></Label>
+                      <Label col="2" text="Race Type"></Label>
+                      <Label col="3" text="Entries" horizontalAlignment="center"></Label>
+                      <Label col="4" text="Purse" horizontalAlignment="center"></Label>
+                    </GridLayout>
+                    <GridLayout (tap)="highlight(race, i, j)" columns="55,*,*,48,48" rows="*" *ngFor="let race of races; let j = index" [visibility]="race.hide == true ? 'collapse' : 'visible'" class="table-body" [class.high-light]="j == highlighted">
+                      <Label col="0" [text]="race.raceDate" textwrap="true"></Label>
+                      <Label col="1" [text]="race.track" textwrap="true"></Label>
+                      <Label col="2" [text]="race.description" textwrap="true"></Label>
+                      <Label col="3" [text]="race.entries" horizontalAlignment="center"></Label>
+                      <Label col="4" [text]="userService.commaSeparateNumber(race.purse)" horizontalAlignment="right"></Label>
+                    </GridLayout>
+                    <GridLayout columns="*" rows="auto" width="100%" *ngIf="races.length == 0" class="table-body">
+                      <Label *ngIf="item.salePrice == null" text="No eligible races"></Label>
+                      <Label *ngIf="item.salePrice != null" text="Cannot Enter Race While at Auction"></Label>
+                    </GridLayout>
+                  </StackLayout>
+                  <GridLayout rows="*" columns="*" *ngIf="loadElig">
+                    <ActivityIndicator [busy]="loadElig"></ActivityIndicator>
+                  </GridLayout>
+                </StackLayout>
+                <StackLayout *ngIf="currentTab == 2" class="sell-card">
+                  <StackLayout orientation="horizontal" *ngIf="canSell">
+                    <StackLayout width="80%" class="details">
+                      <Label text="Put {{item.name}} up for auction?" horizontalAlignment="center" textwrap="true" class="title"></Label>
+                      <Label text="(You will be charged a 5% fee of the winning bid. You may bid on your own horse, but the fee still applies.)" textwrap="true" class="small-print"></Label>
+                    </StackLayout>
+                    <StackLayout verticalAlignment="center" width="20%">
+                      <Button (tap)="sell()" [isEnabled]="buttonEnabled" class="btn post-button" text="Post"></Button>
+                    </StackLayout>
+                  </StackLayout>
+                  <StackLayout *ngIf="!canSell">
+                    <Label text="{{saleText}}" horizontalAlignment="center" textwrap="true" class="title"></Label>
+                  </StackLayout>
+                </StackLayout>
+                <StackLayout *ngIf="currentTab == 3">
+                  <StackLayout *ngIf="item.upcomingRaces.length == 0">
+                    <Label text="Retire {{item.name}} to Breeding Barn?" textwrap="true" class="horse-body-label"></Label>
+                    <StackLayout orientation="horizontal" width="50%" horizontalAlignment="center">
+                      <Button (tap)="retire()" [isEnabled]="buttonEnabled" class="btn warn-button" text="Yes"></Button>
+                      <Button (tap)="showTab(0)" class="btn no-button" text="No"></Button>
+                    </StackLayout>
+                  </StackLayout>
+                  <StackLayout *ngIf="item.upcomingRaces.length">
+                    <Label text="Cannot retire a horse while it is entered in a race." horizontalAlignment="center" textwrap="true" class="title"></Label>
+                  </StackLayout>
+                </StackLayout>
+                <StackLayout *ngIf="currentTab == 4" class="enter-race">
+                  <StackLayout orientation="horizontal">
+                    <StackLayout width="75%" verticalAlignment="center">
+                      <Label [text]="race.track" class="race-title"></Label>
+                      <Label [text]="race.raceDate" class="stats"></Label>
+                      <Label [text]="race.description" class="stats" textwrap="true"></Label>
+                      <StackLayout orientation="horizontal" class="stats">
+                        <Image src="~/assets/coins.png" height="10"></Image>
+                        <Label [text]="userService.commaSeparateNumber(race.purse)"></Label>
+                      </StackLayout>
+                      <StackLayout orientation="horizontal">
+                        <Label text="Driver:" class="pick-driver"></Label>
+                        <Label text="{{selectedDriver}}" (tap)="pickDriver()" class="driver-selected"></Label>
+                      </StackLayout>
+                    </StackLayout>
+                    <StackLayout width="25%" verticalAlignment="center">
+                      <Button (tap)="enterRace(race.id)" [isEnabled]="buttonEnabled" class="btn confirm-button" text="Enter"></Button>
+                      <Button (tap)="showTab(1, item.filter)" class="btn cancel-button" text="Cancel"></Button>
+                    </StackLayout>
+                  </StackLayout>
+                </StackLayout>
+              </StackLayout>
+            </StackLayout>
+          <!-- </CardView> -->
+        </StackLayout>
+      </template>
+      <template nsTemplateKey="buy-horse">
+        <StackLayout class="add-horse-card">
+          <Button (tap)="goToBuyHorse()" text="Buy Horse" class="btn add-horse" horizontalAlignment="center"></Button>
+        </StackLayout>
+      </template>
+    </ListView>
+  </PullToRefresh>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

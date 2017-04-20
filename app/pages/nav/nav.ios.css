@@ -1,0 +1,12 @@
+.action-button {
+  background-color: #607D8B;
+  color: white;
+  margin: 2;
+  radius: 2;
+  text-align: center;
+  font-size: 16;
+}
+.icon {
+  font-size: 55;
+  font-family: "FontAwesome";
+}

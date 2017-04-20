@@ -1,0 +1,30 @@
+.play {
+  font-family: "FontAwesome";
+  font-size: 28;
+}
+.program {
+  color: #607D8B;
+  font-size: 20;
+  font-family: "FontAwesome";
+}
+.list-view {
+  background-color: rgba(204,204,204,0.8);
+}
+.btn {
+  background-color: #607D8B;
+  color: white;
+  font-size: 16;
+  padding: 5 10;
+}
+.claim-entered {
+  background-color: #757575;
+  color: #BDBDBD;
+}
+.confirm {
+  background-color: #D32F2F;
+  margin: 5;
+}
+.cancel {
+  background-color: #757575;
+  margin: 5;
+}

@@ -1,0 +1,24 @@
+<ActionBar title="Program">
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<AbsoluteLayout class="viewer">
+  <StackLayout class="program" *ngIf="!isLoading">
+    <ScrollView orientation="horizontal">
+      <StackLayout orientation="horizontal" class="race-bar" horizontalAlignment="center">
+        <Button class="race-num" [class.selected]="i == raceToShow" (tap)="goToRace(i)" text="{{i+1}}" *ngFor="let race of races; let i = index"></Button>
+      </StackLayout>
+    </ScrollView>
+    <StackLayout>
+      <race [race]="races[raceToShow]" (claimFeedback)="claimEntered($event)"></race>
+    </StackLayout>
+  </StackLayout>
+
+  <GridLayout rows="*" columns="*" class="spinner" *ngIf="isLoading">
+    <ActivityIndicator class="activity-indicator" [busy]="isLoading" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</AbsoluteLayout>

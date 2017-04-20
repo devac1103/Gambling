@@ -1,0 +1,1 @@
+tns build android --release --key-store-path ./offandpacing.keystore --key-store-password oakley --key-store-alias offandpacing --key-store-alias-password oakley

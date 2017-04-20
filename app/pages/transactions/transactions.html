@@ -1,0 +1,26 @@
+<StackLayout width="100%">
+  <GridLayout rows="auto" columns="48, *, 80, 80" class="headings">
+    <Label col="0" text="Time"></Label>
+    <Label col="1" text="Description"></Label>
+    <Label col="2" text="Amount" horizontalAlignment="center"></Label>
+    <Label col="3" text="Balance" horizontalAlignment="center"></Label>
+  </GridLayout>
+  <GridLayout rows="*">
+    <ListView [items]="transactions" [visibility]="!isLoading ? 'visible' : 'collapse'" class="list-view">
+      <template let-item="item" let-i="index">
+        <StackLayout>
+          <Label text="{{item.date}}" class="date" [visibility]="i==0 || item.date != transactions[i-1].date ? 'visible' : 'collapse'"></Label>
+          <GridLayout columns="48, *, 80, 80" class="rows">
+            <Label col="0" [text]="item.time" class="time"></Label>
+            <Label col="1" [text]="item.description" textwrap="true"></Label>
+            <Label col="2" [text]="userService.commaSeparateNumber(item.amount)" [class]="item.amount > 0 ? 'income':'expense'" horizontalAlignment="right"></Label>
+            <Label col="3" [text]="userService.commaSeparateNumber(item.newBalance)" horizontalAlignment="right"></Label>
+          </GridLayout>
+        </StackLayout>
+      </template>
+    </ListView>
+    <GridLayout rows="*" columns="*" *ngIf="isLoading">
+      <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+    </GridLayout>
+  </GridLayout>
+</StackLayout>

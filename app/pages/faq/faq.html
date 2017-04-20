@@ -1,0 +1,57 @@
+<ActionBar title="FAQ">
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<StackLayout orientation="vertical" width="100%">
+  <dashboard></dashboard>
+  <GridLayout rows="*">
+    <ListView #qListView [items]="questions" [visibility]="!isLoading ? 'visible' : 'collapse'">
+      <template let-item="item">
+        <!-- Quesiton -->
+        <StackLayout width="100%">
+          <StackLayout (tap)="toggleAnswer(item.id)" orientation="horizontal" width="100%" height="auto" class="q-card">
+            <StackLayout width="20%" height="100%" verticalAlignment="center">
+              <label text="Q" class="q-icon"></label>
+            </StackLayout>
+            <StackLayout width="80%" height="100%" verticalAlignment="center">
+              <Label text="{{item.question}}" textwrap="true"></Label>
+            </StackLayout>
+          </StackLayout>
+          <!-- Answer -->
+          <StackLayout width="100%" height="auto" class="answer" *ngIf="visibleID == item.id">
+            <StackLayout *ngIf="!item.form" orientation="horizontal">
+              <StackLayout width="20%" height="100%" verticalAlignment="center">
+                <label text="A" class="a-icon"></label>
+              </StackLayout>
+              <StackLayout width="80%" height="100%" verticalAlignment="center">
+                <Label text="{{item.answer}}" textwrap="true"></Label>
+              </StackLayout>
+            </StackLayout>
+            <StackLayout *ngIf="item.form">
+              <StackLayout orientation="horizontal">
+                <StackLayout width="20%" height="100%" verticalAlignment="center">
+                  <label text="A" class="a-icon"></label>
+                </StackLayout>
+                <StackLayout width="80%" height="100%" verticalAlignment="center">
+                  <Label text="{{item.answer}}" textwrap="true"></Label>
+                </StackLayout>
+              </StackLayout>
+              <!-- Feeback form -->
+              <StackLayout>
+                <TextView hint="Enter comments/questions" [(ngModel)]="fbText" class="feedback"></TextView>
+                <Button (tap)="submit()" [isEnabled]="buttonEnabled" text="Submit" horizontalAlignment="right"></Button>
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+      </template>
+    </ListView>
+    <GridLayout rows="*" columns="*" *ngIf="isLoading">
+      <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+    </GridLayout>
+  </GridLayout>
+</StackLayout>

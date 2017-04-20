@@ -1,0 +1,42 @@
+<ActionBar title="Home">
+  <NavigationButton text="" visibility="collapse"></NavigationButton>
+</ActionBar>
+
+<StackLayout>
+  <dashboard></dashboard>
+  <GridLayout columns="*, *" rows="*, *, *">
+    <CardView row="0" col="0" class="action-button" elevation="40">
+      <StackLayout (tap)="goTo('racesNav')" verticalAlignment="center">
+        <Image src="~/assets/track.png" height="50"></Image>
+        <label text="Races" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="0" col="1" class="action-button" elevation="40">
+      <StackLayout (tap)="goTo('myHorses')" verticalAlignment="center">
+        <AbsoluteLayout horizontalAlignment="center">
+          <Image src="~/assets/horse.png" height="50"></Image>
+          <Label *ngIf="horseService.horseBadge" [text]="horseService.horseBadge" class="badge"></Label>
+        </AbsoluteLayout>
+        <label text="My Horses" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="1" col="0" class="action-button" elevation="40">
+      <StackLayout (tap)="goTo('standings')" verticalAlignment="center">
+        <label text="&#xf091;" class="icon"></label>
+        <label text="Standings" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="1" col="1" class="action-button" elevation="40">
+      <StackLayout (tap)="goTo('auction')" verticalAlignment="center">
+        <label text="&#xf0e3;" class="icon"></label>
+        <label text="Auction" class="label"></label>
+      </StackLayout>
+    </CardView>
+    <CardView row="2" col="0" colspan="2" class="action-button" elevation="40">
+      <StackLayout (tap)="goTo('breeding')" verticalAlignment="center">
+        <Image src="~/assets/barn.png" height="50"></Image>
+        <label text="Breeding" class="label"></label>
+      </StackLayout>
+    </CardView>
+  </GridLayout>
+</StackLayout>

@@ -1,0 +1,133 @@
+<StackLayout class="program">
+  <GridLayout rows="auto" columns="*,3*,auto" class="info">
+    <Label col="0" [text]="race.num" class="race-num" verticalAlignment="bottom"></Label>
+    <StackLayout col="1" orientation="horizontal">
+      <StackLayout class="type" verticalAlignment="top">
+        <Label text="PACE" class="gate"></Label>
+        <Label text="1 MILE" class="length"></Label>
+      </StackLayout>
+      <StackLayout verticalAlignment="top">
+        <StackLayout orientation="horizontal" class="race-purse">
+          <Label text="PURSE"></Label>
+          <Image src="~/assets/coins.png" height="12" class="coin"></Image>
+          <Label text="{{userService.commaSeparateNumber(race.purse)}}" class="coin"></Label>
+        </StackLayout>
+        <Label [text]="race.description" class="conds" textwrap="true"></Label>
+      </StackLayout>
+    </StackLayout>
+    <StackLayout col="2" verticalAlignment="center" *ngIf="race.run == 1">
+      <Button (tap)="goToRace(race.id)" text="&#xf144;" class="play"></Button>
+    </StackLayout>
+    <GridLayout col="2" rows="auto,auto" columns="auto" verticalAlignment="center" *ngIf="race.description.indexOf('Claim') != -1 && race.run == 0">
+      <Label row="0" text="double tap" class="claim-hint"></Label>
+      <Label row="1" text="to claim" class="claim-hint"></Label>
+    </GridLayout>
+  </GridLayout>
+
+  <ScrollView #tableHead orientation="horizontal">
+    <GridLayout rows="auto" class="legend" columns="70,90,65,42,18,18,18,18,18,30,80,120">
+      <Label col="0" text="Date" class="normal"></Label>
+      <Label col="1" text="Track" class="normal"></Label>
+      <Label col="2" text="Class" class="normal"></Label>
+      <Label col="3" text="Purse" class="purse"></Label>
+      <!-- <Label col="4" text="1/4" class="normal"></Label>
+      <Label col="5" text="1/2" class="normal"></Label>
+      <Label col="6" text="3/4" class="normal"></Label>
+      <Label col="7" text="Fin" class="normal"></Label> -->
+      <Label col="4" text="PP" class="normal" horizontalAlignment="center"></Label>
+      <Label col="5" text="1/4" class="normal" horizontalAlignment="center"></Label>
+      <Label col="6" text="1/2" class="normal" horizontalAlignment="center"></Label>
+      <Label col="7" text="3/4" class="normal" horizontalAlignment="center"></Label>
+      <Label col="8" text="Fin." class="normal" horizontalAlignment="center"></Label>
+      <!-- <Label col="14" text="L3/4" class="normal"></Label>
+      <Label col="15" text="L1/4" class="normal"></Label> -->
+      <Label col="9" text="Time" class="normal"></Label>
+      <Label col="10" text="Driver" class="normal"></Label>
+      <Label col="11" text="Owner" class="normal"></Label>
+      <!-- <Label col="20" text="First" class="first"></Label>
+      <Label col="21" text="Second" class="second"></Label>
+      <Label col="22" text="Third" class="third"></Label> -->
+    </GridLayout>
+  </ScrollView>
+
+  <ScrollView>
+    <StackLayout>
+      <StackLayout class="horse-info" *ngFor="let h of race.horses; let i = index">
+        <StackLayout *ngIf="claiming != h.horseID" (doubleTap)="claimHorse(h.horseID, h.ownerID, h.claimEntered)">
+          <StackLayout orientation="horizontal">
+            <StackLayout class="post" orientation="horizontal">
+              <Label text={{i+1}} class="prgm-post-box post-{{i+1}}" verticalAlignment="bottom"></Label>
+            </StackLayout>
+            <StackLayout>
+              <GridLayout rows="auto" columns="auto,*,*" class="detail" width="100%">
+                <Label col="0" class="bold" text="{{h.driverName}}"></Label>
+                <Label col="1" text="({{h.driverStarts}}-{{h.driverWins}}-{{h.driverPlaces}}-{{h.driverShows}}-{{h.driverAverage}})"></Label>
+                <Label col="2" class="right" text="All Time: {{h.starts}} {{h.wins}} {{h.places}} {{h.shows}}"></Label>
+              </GridLayout>
+              <GridLayout rows="auto" columns="10,auto,auto,*,auto" class="detail" width="100%">
+                <Label col="0" (tap)="goToHorse(h.horseID)" text="&#xf298;" class="profile"></Label>
+                <Label col="1" class="name" text="{{h.horseName}}"></Label>
+                <Label col="2" text="({{h.wins}}, {{userService.commaSeparateNumber(h.purses)}})"></Label>
+                <Label col="3" class="bold right" text="{{h.ownerName}}"></Label>
+                <Label col="4" class="right" text="({{h.ownerStarts}}-{{h.ownerWins}}-{{h.ownerPlaces}}-{{h.ownerShows}}-{{h.ownerAverage}})"></Label>
+              </GridLayout>
+              <GridLayout rows="auto" columns="110,*" class="detail" width="100%">
+                <Label col="0" text="{{h.color}} {{h.sex == 0 ? 'Colt' : 'Filly'}} {{h.age}}"></Label>
+                <Label col="1" class="right" text="Breeder: {{h.breederName}}"></Label>
+              </GridLayout>
+            </StackLayout>
+          </StackLayout>
+
+          <ScrollView #tableBody (scroll)="onScroll($event)" orientation="horizontal">
+            <StackLayout orientation="vertical" class="headers">
+              <GridLayout rows="auto,auto,auto,auto,auto" columns="40,30,90,65,42,18,18,18,18,18,30,80,auto" *ngFor="let r of h.pastRaces; let j = index">
+
+                <Label row="{{j}}" col="0" text="{{r.raceDate.split(' ')[0]}}"></Label>
+                <Label row="{{j}}" col="1" text="{{r.raceDate.split('M ')[1]}}"></Label>
+                <Label row="{{j}}" col="2" text="{{r.track}}"></Label>
+                <Label row="{{j}}" col="3" text="{{r.restrictions}}{{r.claimedByID? '-z' : ''}}" textwrap="true"></Label>
+                <Label row="{{j}}" col="4" text="{{userService.commaSeparateNumber(r.purse)}}" class="purse"></Label> --> -->
+
+                <!--<Label row="{{j}}" col="4" text="{{r.quarterTime}}" class="normal"></Label>
+                <Label row="{{j}}" col="5" text="{{r.halfTime}}" class="normal"></Label>
+                <Label row="{{j}}" col="6" text="{{r.threeQuarterTime}}" class="normal"></Label>
+                <Label row="{{j}}" col="7" text="{{r.finishTime}}" class="normal"></Label> -->
+
+                <Label row="{{j}}" col="5" text="{{r.post}}" horizontalAlignment="center"></Label>
+                <Label row="{{j}}" col="6" text="{{r.quarterPosition}}" horizontalAlignment="center"></Label>
+                <Label row="{{j}}" col="7" text="{{r.halfPosition}}" horizontalAlignment="center"></Label>
+                <Label row="{{j}}" col="8" text="{{r.threeQuarterPosition}}" horizontalAlignment="center"></Label>
+                <Label row="{{j}}" col="9" text="{{r.finishPosition}}" horizontalAlignment="center"></Label>
+
+                <!-- <Label row="{{j}}" col="14" text="L3/4" class="normal"></Label>
+                <Label row="{{j}}" col="15" text="L1/4" class="normal"></Label> -->
+
+                <Label row="{{j}}" col="10" text="{{r.finishTime}}"></Label>
+                <Label row="{{j}}" col="11" text="{{r.driver}}" textwrap="true"></Label>
+                <Label row="{{j}}" col="12" text="{{r.ownerName}}" textwrap="true"></Label>
+
+                <!-- <Label row="{{j}}" col="19" text="Own" class="normal"></Label> -->
+                <!-- <Label row="{{j}}" col="20" text="First" class="first"></Label>
+                <Label row="{{j}}" col="21" text="Second" class="second"></Label>
+                <Label row="{{j}}" col="22" text="Third" class="third"></Label> -->
+
+              </GridLayout>
+            </StackLayout>
+          </ScrollView>
+        </StackLayout>
+        <StackLayout class="claim" *ngIf="claiming == h.horseID">
+          <StackLayout *ngIf="!claimAlert">
+            <Label text="Claim {{h.horseName}}?" class="claim-label"></Label>
+            <StackLayout orientation="horizontal" width="50%" horizontalAlignment="center">
+              <Button [isEnabled]="buttonEnabled" (tap)="claim()" class="btn confirm" text="Confirm"></Button>
+              <Button (tap)="cancel()" class="btn cancel" text="Cancel"></Button>
+            </StackLayout>
+          </StackLayout>
+          <StackLayout *ngIf="claimAlert">
+            <Label [text]="claimAlert" class="claim-label" textwrap="true"></Label>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+</StackLayout>

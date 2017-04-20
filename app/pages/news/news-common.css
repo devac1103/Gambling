@@ -1,0 +1,47 @@
+.tabs {
+  background-color: #BDBDBD;
+  color: white;
+  font-size: 18;
+  border: solid;
+  border-width: 1;
+  border-color: #757575;
+}
+.button {
+  padding: 5;
+  color: #757575;
+}
+.selected {
+  color: #FFFFFF;
+  background-color: #607D8B;
+}
+.news {
+  background-color: #C5CAE9;
+  font-size: 16;
+  margin: 0 2;
+}
+.story {
+  color: #303F9F;;
+  background-color: #C5CAE9;
+  border: solid;
+  border-width: 0 0 1 0;
+  border-color: #BDBDBD;
+}
+.date {
+  font-size: 14;
+  width: 65;
+  margin: 2 5;
+  color: #212121
+}
+.time {
+  font-size: 14;
+  width: 65;
+  margin: 2 5;
+  color: #212121
+}
+.headline {
+  font-size: 16;
+  font-weight: bold;
+}
+.body {
+  font-size: 14;
+}

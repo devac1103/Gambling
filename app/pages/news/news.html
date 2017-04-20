@@ -1,0 +1,56 @@
+<ActionBar title="News">
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <StackLayout>
+    <StackLayout width="100%">
+      <StackLayout orientation="horizontal" class="tabs" width="100%" horizontalAlignment="center">
+        <StackLayout col="0" orientation="horizontal" (tap)="showTab(1)" class="button" [class.selected]="currentTab == 1">
+          <Label text="Global"></Label>
+          <Label text="&#xf0ac;" class="icon" verticalAlignment="center"></Label>
+        </StackLayout>
+
+        <StackLayout col="1" orientation="horizontal" (tap)="showTab(0)" class="button" [class.selected]="currentTab == 0">
+          <Label text="My News"></Label>
+          <Label text="&#xf007;" class="icon" verticalAlignment="center"></Label>
+        </StackLayout>
+
+        <StackLayout col="2" orientation="horizontal" (tap)="showTab(2)" class="button" [class.selected]="currentTab == 2">
+          <Label text="Transactions"></Label>
+          <Label text="&#xf036;" class="icon" verticalAlignment="center"></Label>
+        </StackLayout>
+      </StackLayout>
+      <GridLayout rows="*" class="news" [visibility]="!isLoading ? 'visible' : 'collapse'">
+        <PullToRefresh *ngIf="currentTab != 2" (refresh)="refreshMe($event)">
+          <ListView #newsList class="news" [items]="news" [itemTemplateSelector]="templateSelector">
+            <template let-item="item" nsTemplateKey="story" let-i="index" class="news">
+              <StackLayout class="story">
+                <Label text="{{item.date}}" class="date" [visibility]="i==0 || item.date != news[i-1].date ? 'visible' : 'collapse'"></Label>
+                <StackLayout class="story" orientation="horizontal">
+                  <Label text="{{item.time}}" class="time" verticalAlignment="top"></Label>
+                  <StackLayout>
+                    <Label text="{{item.headline}}" textwrap="true" class="headline"></Label>
+                    <Label text="{{item.body}}" textwrap="true" class="body"></Label>
+                  </StackLayout>
+                </StackLayout>
+              </StackLayout>
+            </template>
+            <template let-item="item" nsTemplateKey="empty" let-i="index">
+              <Label text=""></Label>
+            </template>
+          </ListView>
+        </PullToRefresh>
+        <transactions *ngIf="currentTab == 2"></transactions>
+      </GridLayout>
+
+    </StackLayout>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

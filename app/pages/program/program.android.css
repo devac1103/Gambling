@@ -1,0 +1,17 @@
+.race-bar {
+  background-color: #303F9F;
+  font-size: 25;
+  color: #FFFFFF;
+  padding: 0;
+}
+.race-num {
+  padding: 0;
+  text-align: center;
+  border: solid;
+  border-width: 1;
+  border-color: #303F9F;
+}
+.selected {
+  background-color: #607D8B;
+  border-color: #BDBDBD;
+}

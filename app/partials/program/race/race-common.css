@@ -1,0 +1,164 @@
+.program {
+  padding: 5;
+  background-color: #FFFFFF;
+}
+.info {
+  width: 100%;
+  border: solid;
+  border-color: #212121;
+  border-width: 0 0 1 0;
+}
+.race-num {
+  padding-left: 5;
+  font-size: 50;
+  font-weight: bold;
+  width: 20%;
+}
+.type {
+  padding-right: 10;
+}
+.gate {
+  font-size: 18;
+  font-weight: bold;
+}
+.length {
+  font-size: 14;
+}
+.race-purse {
+  font-weight: bold;
+  font-size: 14;
+}
+.coin {
+  margin-left: 1;
+}
+.conds {
+  font-style: italic;
+  font-size: 12;
+}
+.headers {
+  font-size: 8;
+}
+.legend {
+  padding: 5 0 2 0;
+  font-size: 8;
+  border: solid;
+  border-color: #212121;
+  border-width: 0 0 1 0;
+}
+.normal {
+  padding-right: 3;
+}
+.purse {
+  text-align: right;
+  padding-right: 3;
+}
+.first {
+  padding-right: 3;
+}
+.second {
+  text-align: center;
+  padding: 0 3;
+}
+.third {
+  text-align: right;
+  padding-left: 3;
+}
+.horse-info {
+  width: 100%;
+  padding: 2 0;
+  border: solid;
+  border-color: #212121;
+  border-width: 0 0 1 0;
+}
+.post {
+  margin-right: 5;
+  font-size: 20;
+}
+.prgm-post-box {
+  width: 28;
+  height: 28;
+  text-align: center;
+  border-color: black;
+  border: solid;
+  border-width: 1;
+}
+.post-1 {
+  color: #FFFFFF;
+  background-color: #BC261A;
+}
+.post-2 {
+  color: #FFFFFF;
+  background-color: #2A41F5;
+}
+.post-3 {
+  color: #212121;
+  background-color: #EBEBEB;
+}
+.post-4 {
+  color: #FFFFFF;
+  background-color: #44952A;
+}
+.post-5 {
+  color: #FFFFFF;
+  background-color: #2D2D2D;
+}
+.post-6 {
+  color: #212121;
+  background-color: #FFFD61;
+}
+.post-7 {
+  color: #212121;
+  background-color: #F19FCA;
+}
+.post-8 {
+  color: #FFFFFF;
+  background-color: #999999;
+}
+.post-9 {
+  color: #FFFFFF;
+  background-color: #8B29C5;
+}
+.post-10 {
+  color: #FFFFFF;
+  background-image: url("~/assets/post-10.png");
+  background-size: 100% 100%;
+}
+.name {
+  font-size: 10;
+  font-weight: bold;
+}
+.bold {
+  font-weight: bold;
+}
+.detail {
+  font-size: 7;
+}
+.right {
+  text-align: right;
+}
+.claim-hint {
+  font-size: 14;
+  text-align: center;
+  color: #BDBDBD;
+}
+.claim-label {
+  font-size: 20;
+  text-align: center;
+}
+.btn {
+  background-color: #607D8B;
+  color: white;
+  font-size: 16;
+  padding: 5 10;
+}
+.confirm {
+  background-color: #D32F2F;
+  margin: 5;
+}
+.cancel {
+  background-color: #757575;
+  margin: 5;
+}
+.claim {
+  margin: 10 0;
+}

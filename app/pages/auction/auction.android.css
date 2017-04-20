@@ -1,0 +1,24 @@
+.list-view {
+  background-color: #FFFFFF;
+}
+.profile {
+  text-align: center;
+  color: #607D8B;
+  font-size: 25;
+  font-family: fontawesome-webfont;
+}
+.tab {
+  background-color: #757575;
+  color: white;
+  text-align: center;
+  font-size: 14;
+  padding: 2 5;
+  margin: 2;
+  border: solid;
+  border-width: 1;
+  border-color: #757575;
+}
+.selected {
+  background-color: #607D8B;
+  color: white;
+}

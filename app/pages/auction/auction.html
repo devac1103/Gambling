@@ -1,0 +1,78 @@
+<ActionBar title="Auction"></ActionBar>
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <GridLayout rows="auto" columns="*,auto,auto,auto,auto,auto,auto,auto,auto,*" width="100%" horizontalAlignment="center">
+    <Label col="0"></Label>
+    <Label col="1" text="All" class="tab" [class.selected]="ageFilter == -1" (tap)="age(-1)"></Label>
+    <Label col="2" text="2" class="tab" [class.selected]="ageFilter == 2" (tap)="age(2)"></Label>
+    <Label col="3" text="3" class="tab" [class.selected]="ageFilter == 3" (tap)="age(3)"></Label>
+    <Label col="4" text="4+" class="tab" [class.selected]="ageFilter == 4" (tap)="age(4)"></Label>
+    <Label col="5" text=" | " verticalAlignment="center"></Label>
+    <Label col="6" text="Both" class="tab" [class.selected]="sexFilter == -1" (tap)="sex(-1)"></Label>
+    <Label col="7" text="Colt" class="tab" [class.selected]="sexFilter == 0" (tap)="sex(0)"></Label>
+    <Label col="8" text="Filly" class="tab" [class.selected]="sexFilter == 1" (tap)="sex(1)"></Label>
+    <Label col="9"></Label>
+  </GridLayout>
+  <PullToRefresh (refresh)="refreshMe($event)">
+    <ListView #horsesListView [items]="horses" class="list-view" height="100%" [itemTemplateSelector]="templateSelector" [visibility]="!isLoading ? 'visible' : 'collapse'">
+      <template let-item="item" let-i="index" nsTemplateKey="auction-card">
+        <!-- Horse card -->
+        <StackLayout>
+        <StackLayout orientation="horizontal" width="100%">
+          <StackLayout verticalAlignment="center" orientation="horizontal" width="80%" class="horse-card">
+            <Image src="~/assets/{{item.color.toLowerCase()}}-horse.png" height="80"></Image>
+            <StackLayout width="100%" height="100%" class="horse-detail">
+              <StackLayout orientation="horizontal" width="100%">
+                <StackLayout>
+                  <Label text="{{item.name}} {{item.stats}}" verticalAlignment="center" width="85%" class="name" textwrap="true"></Label>
+                  <Label text="(retired)" class="retired-lbl" [visibility]="item.retired == 1 ? 'visible' : 'collapse'"></Label>
+                </StackLayout>
+                <Button (tap)="goToHorse(item.id)" class="profile" text="&#xf298;" width="15%"></Button>
+              </StackLayout>
+              <Label text="Time left: {{getTimeLeft(item.timeLeft)}}"></Label>
+              <StackLayout orientation="horizontal">
+                <Label text="High Bid: "></Label>
+                <Image src="~/assets/coins.png" height="16"></Image>
+                <Label text=" {{userService.commaSeparateNumber(item.salePrice)}}"></Label>
+              </StackLayout>
+              <StackLayout orientation="horizontal">
+                <Label text="Bidder: "></Label>
+                <Label text="{{item.bidder}}" textwrap="true"></Label>
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+          <StackLayout verticalAlignment="center" width="20%">
+            <Button (tap)="open(item.id, item.salePrice)" class="bid-button" text="Bid"></Button>
+          </StackLayout>
+        </StackLayout>
+        </StackLayout>
+      </template>
+      <template let-bidObj="item" let-j="index" nsTemplateKey="bid-card">
+        <StackLayout>
+        <StackLayout orientation="horizontal" class="buttons" width="100%">
+          <StackLayout orientation="horizontal" width="80%" class="buy-card">
+            <StackLayout>
+              <Label [text]="error" textwrap="true"></Label>
+              <StackLayout orientation="horizontal">
+                <Label text="Bid: "></Label>
+                <Image src="~/assets/coins.png" height="20"></Image>
+                <TextField keyboardType="number" hint="Enter amount" [(ngModel)]="newBid" class="bid"></TextField>
+              </StackLayout>
+            </StackLayout>
+          </StackLayout>
+          <StackLayout verticalAlignment="center" width="20%">
+            <Button (tap)="bid(bidObj.id, bidObj.salePrice)" [isEnabled]="buttonEnabled" class="confirm-button" text="Confirm"></Button>
+            <Button (tap)="cancel()" class="cancel-button" text="Cancel"></Button>
+          </StackLayout>
+        </StackLayout>
+        </StackLayout>
+      </template>
+      <template nsTemplateKey="empty">
+        <GridLayout></GridLayout>
+      </template>
+    </ListView>
+  </PullToRefresh>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

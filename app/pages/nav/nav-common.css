@@ -1,0 +1,16 @@
+.label {
+  margin-top: 5;
+}
+.stakes {
+  text-align: right;
+  color: white;
+  border-color: white;
+  font-size: 50;
+  border: solid;
+  border-width: 2;
+  border-radius: 5;
+  text-align: center;
+  height: 50;
+  width: 50;
+  border-radius: 25;
+}

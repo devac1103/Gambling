@@ -1,0 +1,19 @@
+<ActionBar title="">
+  <ActionItem (tap)="shareText()" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf1e0;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<AbsoluteLayout class="viewer">
+  <GridLayout rows="*" columns="*" class="spinner" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+  <WebView #webview class="webview" src="https://offandpacing.com/viewRace.html?{{raceID}}&{{cacheBuster}}" (loadFinished)="loadFinished($event)"></WebView>
+</AbsoluteLayout>

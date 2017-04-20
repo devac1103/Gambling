@@ -1,0 +1,26 @@
+.pedigree-1 {
+  background-color: #C5CAE9;
+  border: solid;
+  border-width: 1;
+  border-color: #757575;
+  height: 120;
+}
+.pedigree-2 {
+  background-color: #C5CAE9;
+  border: solid;
+  border-width: 1;
+  border-color: #757575;
+  height: 60;
+}
+.pedigree-3 {
+  background-color: #C5CAE9;
+  border: solid;
+  border-width: 1;
+  border-color: #757575;
+  height: 30;
+}
+.retired-lbl {
+  color: #D32F2F;
+  font-size: 14;
+  font-weight: bold;
+}

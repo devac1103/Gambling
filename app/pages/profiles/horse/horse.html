@@ -1,0 +1,91 @@
+<ActionBar title="{{name}}">
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <ScrollView [visibility]="!isLoading ? 'visible' : 'collapse'">
+    <StackLayout width="100%">
+      <StackLayout orientation="horizontal" width="100%" class="card">
+        <Image src="~/assets/{{imageColor}}-horse.png" width="30%"></Image>
+        <StackLayout width="70%">
+          <StackLayout>
+            <Label text="{{name}}" class="name"></Label>
+            <Label (tap)="goToOwner(ownerID)" text="{{ownerName}}" class="detail"></Label>
+            <Label text="{{specs}}" class="detail"></Label>
+          </StackLayout>
+          <StackLayout orientation="horizontal">
+            <StackLayout class="info" width="60%">
+              <Label text="(retired)" class="retired-lbl" [visibility]="retired == 1 ? 'visible' : 'collapse'"></Label>
+              <StackLayout orientation="horizontal">
+                <Label text="Purses: " textWrap="true"></Label>
+                <Image src="~/assets/coins.png" height="10"></Image>
+                <Label text=" {{purses}}"></Label>
+              </StackLayout>
+              <Label [text]="stakes ? 'Stakes eligible' : 'Not stakes eligible'"></Label>
+            </StackLayout>
+            <StackLayout class="stats" width="40%">
+              <GridLayout width="100%" rows="auto,auto,auto,auto,auto" columns="*,auto">
+                <Label row="0" col="0" text="Starts: " class="stat"></Label>
+                <Label row="0" col="1" text="{{starts}}"></Label>
+                <Label row="1" col="0" text="Wins: " class="stat"></Label>
+                <Label row="1" col="1" text="{{wins}}"></Label>
+                <Label row="2" col="0" text="Places: " class="stat"></Label>
+                <Label row="2" col="1" text="{{places}}"></Label>
+                <Label row="3" col="0" text="Shows: " class="stat"></Label>
+                <Label row="3" col="1" text="{{shows}}"></Label>
+                <Label row="4" col="0" text="Average: " class="stat"></Label>
+                <Label row="4" col="1" text="{{average}}"></Label>
+              </GridLayout>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+      <StackLayout>
+        <Label text="Upcoming Races" class="table-title" (tap)="upcomingOpen = !upcomingOpen"></Label>
+        <upcoming-races [races]="upcomingRaces" *ngIf="upcomingOpen"></upcoming-races>
+        <Label text="Results" class="table-title" (tap)="resultsOpen = !resultsOpen"></Label>
+        <past-races [races]="pastRaces" mode=0 *ngIf="resultsOpen"></past-races>
+
+        <Label text="Sale History" class="table-title" (tap)="historyOpen = !historyOpen"></Label>
+        <StackLayout *ngIf="historyOpen">
+          <GridLayout columns="65,*,85" rows="*" width="100%" verticalAlignment="top" class="table-header table-body">
+            <Label col="0" text="Date"></Label>
+            <Label col="1" text="Previous Owner"></Label>
+            <Label col="2" text="Price" horizontalAlignment="center"></Label>
+          </GridLayout>
+          <GridLayout columns="65,*,85" width="100%" class="table-body" *ngFor="let sale of history; let i = index">
+            <Label col="0" row="{{i+1}}" [text]="sale.saleDate"></Label>
+            <Label col="1" row="{{i+1}}" [text]="sale.username" textwrap="true"></Label>
+            <Label col="2" row="{{i+1}}" [text]="userService.commaSeparateNumber(sale.price)" horizontalAlignment="center"></Label>
+          </GridLayout>
+          <GridLayout columns="*" rows="auto" width="100%" *ngIf="history.length == 0" class="table-body">
+            <Label text="No sale history"></Label>
+          </GridLayout>
+        </StackLayout>
+
+        <Label text="Pedigree" class="table-title" (tap)="pedigreeOpen = !pedigreeOpen"></Label>
+        <StackLayout orientation="horizontal" width="100%" *ngIf="pedigreeOpen" height="120">
+          <Label text="{{name}}" class="pedigree-1" width="34%" textwrap="true"></Label>
+          <StackLayout width="33%">
+            <Label text="{{sire}}" (tap)="goToHorse(sireID)" class="pedigree-2" textwrap="true"></Label>
+            <Label text="{{mare}}" (tap)="goToHorse(mareID)" class="pedigree-2" textwrap="true"></Label>
+          </StackLayout>
+          <StackLayout width="33%">
+            <Label text="{{ssire}}" (tap)="goToHorse(ssireID)" class="pedigree-3" textwrap="true"></Label>
+            <Label text="{{smare}}" (tap)="goToHorse(smareID)" class="pedigree-3" textwrap="true"></Label>
+            <Label text="{{msire}}" (tap)="goToHorse(msireID)" class="pedigree-3" textwrap="true"></Label>
+            <Label text="{{mmare}}" (tap)="goToHorse(mmareID)" class="pedigree-3" textwrap="true"></Label>
+          </StackLayout>
+        </StackLayout>
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

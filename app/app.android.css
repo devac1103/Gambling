@@ -1,0 +1,70 @@
+@import url("~/platform.css");
+Page {
+  background-color: #BDBDBD;
+  font-size: 15;
+}
+TextField {
+  padding: 10;
+  font-size: 13;
+}
+ActionBar {
+  background-color: #303F9F;
+  color: white;
+}
+Button {
+  background-color: transparent;
+  background-color: rgba(255, 0, 0, 0.0);
+  border-color:rgba(255, 0, 0, 0.0);
+  border-width: 1;
+  padding: 0;
+}
+CardView {
+  background-color: transparent;
+  border: none;
+  border-width: 0.1;
+}
+.activity-indicator {
+  height: 25;
+  width: 25;
+}
+.table-title {
+  margin: 0;
+  padding: 5 17;
+  background-color: #607D8B;
+  color: white;
+  font-size: 16;
+  border: solid;
+  border-width: 1;
+  border-color: #C5CAE9;
+}
+.table-header {
+  margin: 0 0 2 0;
+  font-weight: bold;
+  padding-left: 2;
+}
+.table-body {
+  color: black;
+  background-color: #C5CAE9;
+  font-size: 12;
+  padding-left: 2;
+  border: solid;
+  border-width: 1 0 0 0;
+  border-color: #ECEEEF;
+}
+.font-awesome {
+  font-family: fontawesome-webfont;
+}
+.nav-home {
+  font-family: fontawesome-webfont;
+  font-size: 18;
+  margin-right: 10;
+}
+.badge {
+  font-size: 10;
+  color: #FFFFFF;
+  background-color: #303F9F;
+  text-align: center;
+  height: 14;
+  width: 14;
+  border-radius: 7;
+}

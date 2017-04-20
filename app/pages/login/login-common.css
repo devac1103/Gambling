@@ -1,0 +1,19 @@
+Image {
+  margin-top: 5;
+  margin-bottom: 20;
+}
+Textfield {
+  margin-bottom: 5;
+}
+.login {
+  background-color: #3F51B5;
+  color: white;
+  height: auto;
+  margin-left: 30;
+  margin-right: 30;
+  padding: 20;
+}
+.submit-button {
+  background-color: #607D8B;
+  margin-top: 20;
+}

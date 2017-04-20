@@ -1,0 +1,20 @@
+.dashboard {
+  background-color: #3F51B5;
+  width: 100%;
+  color: white;
+  text-align: center;
+}
+.user-name {
+  font-size: 35;
+  text-align: center;
+}
+.coin-balance {
+  color: yellow;
+  margin-left: 3;
+  font-size: 25;
+}
+.date {
+  font-size: 12;
+  text-align: right;
+  padding: 5;
+}

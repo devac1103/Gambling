@@ -1,0 +1,33 @@
+<ActionBar title="Off and Pacing">
+  <NavigationButton text=""></NavigationButton>
+</ActionBar>
+
+<StackLayout>
+  <dashboard></dashboard>
+  <ScrollView>
+    <GridLayout rows="auto" columns="auto, *">
+      <Image col="0" class="intro-character" src="~/assets/driver-full.png" verticalAlignment="top"></Image>
+      <StackLayout col="1">
+        <StackLayout class="body">
+          <GridLayout rows="auto, auto, auto, auto, auto, *" columns="*">
+            <StackLayout row="0" class="speech">
+              <Label [text]="bubble1" textwrap="true"></Label>
+            </StackLayout>
+            <StackLayout row="1" class="speech">
+              <Label #bubble [text]="bubble2" textwrap="true"></Label>
+            </StackLayout>
+            <TextField row="2" hint="Horse Name" [(ngModel)]="name"></TextField>
+
+            <GridLayout row="3" rows="auto" columns="*,*">
+              <Button col="0" text="Colt" class="btn" [class.selected]="genderSelected == 0" (tap)="colt()"></Button>
+              <Button col="1" text="Filly" class="btn" [class.selected]="genderSelected == 1" (tap)="filly()"></Button>
+            </GridLayout>
+
+            <Button row="4" text="Submit" [isEnabled]="buttonEnabled" class="btn selected" (tap)="submit()"></Button>
+            <Label row="5"></Label>
+          </GridLayout>
+        </StackLayout>
+      </StackLayout>
+    </GridLayout>
+  </ScrollView>
+</StackLayout>

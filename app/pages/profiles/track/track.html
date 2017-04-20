@@ -1,0 +1,91 @@
+<ActionBar title="{{name}}">
+  <ActionItem (tap)="router.navigate(['/home']);" ios.position="right">
+    <StackLayout>
+      <Label text="&#xf015;" class="nav-home"></Label>
+    </StackLayout>
+  </ActionItem>
+</ActionBar>
+
+<StackLayout width="100%">
+  <dashboard></dashboard>
+  <ScrollView [visibility]="!isLoading ? 'visible' : 'collapse'">
+    <StackLayout width="100%">
+      <GridLayout columns="*, 3*">
+        <Image col="0" src="~/assets/track.png" class="track-image"></Image>
+        <StackLayout col="1" class="card">
+          <Label text="{{track.name}}" class="name" textwrap="true"></Label>
+          <Label text="{{track.size}} ({{track.horsesOnGate}} wide)" class="detail"></Label>
+          <!-- <StackLayout width="35%" verticalAlignment="center" class="records">
+            <label text="Top Driver" class="record"></label>
+            <label text="{{track.topDriver}}"></label>
+            <label text="Top Owner" class="record"></label>
+            <label text="{{track.topOwner}}"></label>
+          </StackLayout> -->
+        </StackLayout>
+      </GridLayout>
+      <StackLayout>
+        <Label text="Track Records" class="table-title" (tap)="openRecords()"></Label>
+        <StackLayout *ngIf="recordsOpen">
+          <StackLayout *ngIf="!loadRecords">
+            <GridLayout columns="150, 52, *" width="100%" class="table-body" *ngFor="let rec of records; let i = index">
+              <Label col="0" text="{{rec.age}} year old {{getGenderString(rec.sex, rec.age)}}"></Label>
+              <Label col="1" text="{{rec.record}}" class="time"></Label>
+              <Label col="2" (tap)="goToHorse(rec.horseID)" text=" ({{rec.recordHolder}})" textwrap="true"></Label>
+            </GridLayout>
+            <GridLayout columns="*" rows="auto" width="100%" *ngIf="!records" class="table-body">
+              <Label text="No records"></Label>
+            </GridLayout>
+          </StackLayout>
+          <GridLayout rows="*" columns="*" *ngIf="loadRecords">
+            <ActivityIndicator [busy]="loadRecords"></ActivityIndicator>
+          </GridLayout>
+        </StackLayout>
+        <Label text="Stakes Races" class="table-title" (tap)="openStakes()"></Label>
+        <StackLayout *ngIf="stakesOpen">
+          <StackLayout *ngIf="!loadStakes">
+            <StackLayout *ngFor="let race of stakes; let j = index">
+              <StackLayout class="stakes-card">
+                <GridLayout columns="3*,*">
+                  <Label col="0" text="{{race.name}}" class="race-title" textwrap="true"></Label>
+                  <StackLayout col="1" orientation="horizontal" horizontalAlignment="right" class="purse">
+                    <Image src="~/assets/coins.png" height="10"></Image>
+                    <Label text=" {{userService.commaSeparateNumber(race.finalPurse)}}"></Label>
+                  </StackLayout>
+                </GridLayout>
+                <Label text="Schedule: {{race.weeks}}" textwrap="true" class="small-print"></Label>
+                <Label text="{{race.horseType}}" class="small-print"></Label>
+              </StackLayout>
+            </StackLayout>
+            <GridLayout columns="*" rows="auto" width="100%" *ngIf="!stakes" class="table-body">
+              <Label text="No Stakes"></Label>
+            </GridLayout>
+          </StackLayout>
+          <GridLayout rows="*" columns="*" *ngIf="loadStakes">
+            <ActivityIndicator [busy]="loadStakes"></ActivityIndicator>
+          </GridLayout>
+        </StackLayout>
+        <!-- <Label text="Top Drivers" class="table-title" (tap)="driversOpen = !driversOpen"></Label>
+        <StackLayout *ngIf="driversOpen">
+          <StackLayout *ngIf="!callingServer">
+            Top Drivers output
+          </StackLayout>
+          <GridLayout rows="*" columns="*" *ngIf="callingServer">
+            <ActivityIndicator [busy]="callingServer"></ActivityIndicator>
+          </GridLayout>
+        </StackLayout>
+        <Label text="Top Owners" class="table-title" (tap)="ownersOpen = !ownersOpen"></Label>
+        <StackLayout *ngIf="ownerOpen">
+          <StackLayout *ngIf="!callingServer">
+            Top Owners output
+          </StackLayout>
+          <GridLayout rows="*" columns="*" *ngIf="callingServer">
+            <ActivityIndicator [busy]="callingServer"></ActivityIndicator>
+          </GridLayout>
+        </StackLayout> -->
+      </StackLayout>
+    </StackLayout>
+  </ScrollView>
+  <GridLayout rows="*" columns="*" *ngIf="isLoading">
+    <ActivityIndicator [busy]="isLoading" class="activity-indicator" [visibility]="isLoading ? 'visible' : 'collapse'"></ActivityIndicator>
+  </GridLayout>
+</StackLayout>

@@ -1,0 +1,18 @@
+TextField {
+  border-width: 0;
+  background-color: #FFFFFF;
+  margin: 10 0;
+}
+.btn {
+  background-color: #757575;
+  color: white;
+  text-align: center;
+  font-size: 18;
+  margin: 5;
+  border: solid;
+  border-width: 1;
+  border-color: #757575;
+}
+.selected {
+  background-color: #607D8B;
+}
